@@ -37,3 +37,5 @@ export {
   Song,
   Synth,
 };
+
+console.log("coucou");

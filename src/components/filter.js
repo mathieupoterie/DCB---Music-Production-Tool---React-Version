@@ -45,7 +45,7 @@ export default class Filter extends Component {
     ]),
   };
   static defaultProps = {
-    frequency: 2000,
+    frequency: 200,
     gain: 0,
     type: 'lowpass',
   };
@@ -91,7 +91,12 @@ export default class Filter extends Component {
       }
     }
   }
-  render(): React.Element<any> {
-    return <span>{this.props.children}</span>;
+  render() {
+    return (
+        <div>
+        <h1>Filter</h1>
+        <span>{this.props.children}</span>
+        </div>
+    );
   }
 }
