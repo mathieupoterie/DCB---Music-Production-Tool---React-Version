@@ -5,7 +5,7 @@ interfaces
 .*/dist/.*
 .*/lib/.*
 .*/umd/.*
-.*/demo/.*
+.*/App/.*
 .*/node_modules/flow-bin/.*
 
 [include]

@@ -38,4 +38,4 @@ export {
   Synth,
 };
 
-console.log("coucou");
+console.log('index.js?');

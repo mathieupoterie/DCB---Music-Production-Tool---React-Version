@@ -15,7 +15,7 @@ class MyComponent extends React.Component {
       <Knob
         value={this.state.value}
         onChange={this.handleChange.bind(this)}
-      />
+        onChangeEnd={this.handleChange.bind(this)}
     );
   }
 }

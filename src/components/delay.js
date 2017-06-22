@@ -1,12 +1,5 @@
-// @flow
-/* eslint-disable no-restricted-syntax */
 import React, { PropTypes, Component } from 'react';
 import Tuna from 'tunajs';
-import Knob from 'react-canvas-knob';
-
-import Slider, { Range } from 'rc-slider';
-import '../../public/rc-slider.css';
-
 
 type Props = {
   bypass?: number;
@@ -54,7 +47,6 @@ export default class Delay extends Component {
   };
   constructor(props: Props, context: Context) {
     super(props);
-    this.state = {value: 50};
 
     const tuna = new Tuna(context.audioContext);
 
@@ -75,24 +67,6 @@ export default class Delay extends Component {
       connectNode: this.connectNode,
     };
   }
-  handleVal(e){
-      console.log("click");
-      console.log(e.target.value);
-      var time;
-      var value = e.target.value;
-      if (value = 2) {
-          time = 1000
-      }else if (value = 1){
-          time = 500
-      }else if (value = 0.5){
-          time = 250
-      }else {
-          time = 125;
-      }
-
-
-      this.connectNode.delayTime  = time
-  }
   componentWillReceiveProps(nextProps: Props) {
     for (const prop in nextProps) {
       if (this.connectNode[prop]) {
@@ -103,28 +77,7 @@ export default class Delay extends Component {
   componentWillUnmount() {
     this.connectNode.disconnect();
   }
-  handleChange = (newValue) => {
-        this.connectNode.feedback = newValue / 100;
-        this.setState({value: newValue});
-  };
-  render() {
-      const wrapperStyle = { width: 400, margin: 50 };
-    return (
-        <div>
-        <h1>DELAY</h1>
-        <Slider />
-        <Range />
-        <Knob
-          value={this.state.value}
-          onChange={this.handleChange.bind(this)}
-          onChangeEnd={this.handleChange.bind(this)}
-        />
-        <input type="button" value="2" onClick={this.handleVal.bind(this)}/>
-        <input type="button" value="1" onClick={this.handleVal.bind(this)}/>
-        <input type="button" value="0.5" onClick={this.handleVal.bind(this)}/>
-        <input type="button" value="0.25" onClick={this.handleVal.bind(this)}/>
-        <span>{this.props.children}</span>;
-        </div>
-    );
+  render(): React.Element<any> {
+    return <span>{this.props.children}</span>;
   }
 }

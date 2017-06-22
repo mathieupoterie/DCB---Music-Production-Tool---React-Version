@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "clean-umd": "rimraf umd",
     "dist": "npm run clean && webpack && cp -a public/. dist/",
-    "lint": "eslint src demo --fix",
+    "lint": "eslint src App --fix",
     "flow-check": "flow check",
     "flow": "flow",
     "umd": "npm run clean-umd && webpack --config webpack.config.umd.js"
@@ -26,6 +26,7 @@
     "note-parser": "^2.0.0",
     "rc-slider": "^8.1.3",
     "react-canvas-knob": "^0.4.0",
+    "react-drum-machine": "^1.8.0",
     "tunajs": "^0.4.5",
     "uuid": "^2.0.2"
   },
