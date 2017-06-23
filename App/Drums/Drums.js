@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import Knob from 'react-canvas-knob';
 
 import {
   Sequencer,
   Sampler,
   Filter,
+  Bitcrusher,
+  Gain,
 } from '../../src';
 
 
@@ -13,6 +16,10 @@ export default class Drums extends Component {
     super(props);
 
     this.state = {
+        showOrHideBit : 'Enable',
+        bit : 8,
+        knobMainGain: 100,
+        mainGain: 1,
         showContainer : null,
         resolution : 16,
         bars : 1,
@@ -31,6 +38,10 @@ export default class Drums extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.removeStepFromSteps = this.removeStepFromSteps.bind(this);
     this.showOrHideContainer = this.showOrHideContainer.bind(this)
+  }
+
+  handleChangeMainGain(e){
+      this.setState({knobMainGain: e, mainGain: (e/100)})
   }
 
   selectResolution(e){
@@ -59,19 +70,31 @@ export default class Drums extends Component {
       }
   }
 
+  selectBit(e){
+      this.setState({bit : Number(e.target.value)})
+  }
+
+  showOrHideBit(){
+      if (this.state.showOrHideBit == "Disable") {
+          this.setState({showOrHideBit : "Enable"})
+      }else {
+          this.setState({showOrHideBit : "Disable"})
+      }
+  }
+
 
   handleChange(e){
-      var colId = Number(e.target.id);
-      var instrument = e.target.name;
-      var instrumentSeq = e.target.name + "SEQ";
+      var idArray = e.target.id.split(",");
+      var colId = Number(idArray[0]);
+      var instrument = idArray[1];
       if (instrument == "hihat") {
           var checks =  this.state.hihatChecked;
           var steps = this.state.hihatSeq;
           steps.push(colId -1);
           if(!checks[colId]){
-              checks[colId] = "yes"
+              checks[colId] = "checked"
               this.setState({hihatChecked : checks,hihatSeq : steps})
-          }else if (checks[colId] == "yes"){
+          }else if (checks[colId] == "checked"){
               checks[colId] = null;
               this.removeStepFromSteps("hihatChecked", checks, "hihatSeq", steps, (colId-1));
           }
@@ -81,9 +104,9 @@ export default class Drums extends Component {
           var steps = this.state.kickSeq;
           steps.push(colId-1);
           if(!checks[colId]){
-              checks[colId] = "yes"
+              checks[colId] = "checked"
               this.setState({kickChecked : checks, kickSeq : steps })
-          }else if (checks[colId] == "yes"){
+          }else if (checks[colId] == "checked"){
               checks[colId] = null;
               this.removeStepFromSteps("kickChecked", checks, "kickSeq", steps, (colId-1));
           }
@@ -94,9 +117,9 @@ export default class Drums extends Component {
           var steps = this.state.snareSeq;
           steps.push(colId-1);
           if(!checks[colId]){
-              checks[colId] = "yes"
+              checks[colId] = "checked"
               this.setState({snareChecked : checks, snareSeq : steps })
-          }else if (checks[colId] == "yes"){
+          }else if (checks[colId] == "checked"){
               checks[colId] = null;
               this.removeStepFromSteps("snareChecked",checks, "snareSeq", steps, (colId-1));
           }
@@ -107,9 +130,9 @@ export default class Drums extends Component {
           var steps = this.state.CowBellSeq;
           if(!checks[colId]){
               steps.push(colId -1);
-              checks[colId] = "yes"
+              checks[colId] = "checked"
               this.setState({cowBellChecked : checks, CowBellSeq : steps })
-          }else if (checks[colId] == "yes"){
+          }else if (checks[colId] == "checked"){
               checks[colId] = null;
               this.removeStepFromSteps("cowBellChecked",checks , "CowBellSeq", steps, (colId-1));
           }
@@ -139,6 +162,10 @@ export default class Drums extends Component {
 
   handleClearSequence(){
       this.setState({
+          showOrHideBit : 'Enable',
+          bit : 8,
+          knobMainGain: 100,
+          mainGain: 1,
           kickSeq : [],
           snareSeq : [],
           hihatSeq : [],
@@ -160,6 +187,8 @@ export default class Drums extends Component {
   }
 
   render() {
+
+      console.log("state", this.state);
 
 
       var that = this;
@@ -191,50 +220,87 @@ export default class Drums extends Component {
           )
       })
 
-      hihatSequencerStep = hihatColumns.map(function(col){
-          return (
-              <td><input name="hihat" id={col.id} type="checkbox" onChange={that.handleChange} checked={that.state.hihatChecked[col.id]}></input></td>
-          )
-      })
+    hihatSequencerStep = hihatColumns.map((col) => {
+        return (
+            <td><div id={col.id +',hihat'} className={`drum-step ${this.state.hihatChecked[col.id]}`} onClick={that.handleChange}></div></td>
+        )
+    })
 
-      kickSequencerStep = kickColumns.map(function(col){
-          return (
-              <td><input name="kick" id={col.id} type="checkbox" onChange={that.handleChange} checked={that.state.kickChecked[col.id]}></input></td>
-          )
-      })
+    kickSequencerStep = kickColumns.map((col) => {
+        return (
+            <td><div id={col.id +',kick'} className={`drum-step ${this.state.kickChecked[col.id]}`} onClick={that.handleChange}></div></td>
+        )
+    })
 
-      snareSequencerStep = snareColumns.map(function(col){
-          return (
-              <td><input name="snare" id={col.id} type="checkbox" onChange={that.handleChange} checked={that.state.snareChecked[col.id]}></input></td>
-          )
-      })
+    snareSequencerStep = snareColumns.map((col) => {
+        return (
+            <td><div id={col.id +',snare'} className={`drum-step  ${this.state.snareChecked[col.id]}`} onClick={that.handleChange}></div></td>
+        )
+    })
 
-      cowbellSequencerStep = cowbellColumns.map(function(col){
-          return (
-              <td><input name="cowBell" id={col.id} type="checkbox" onChange={that.handleChange} checked={that.state.cowBellChecked[col.id]}></input></td>
-          )
-      })
+    cowbellSequencerStep = cowbellColumns.map((col) => {
+        return (
+            <td><div id={col.id +',cowBell'} className={`drum-step  ${this.state.cowBellChecked[col.id]}`} onClick={that.handleChange}></div></td>
+        )
+    })
 
       var drums =
 
       <div id="show-container" className="section">
 
+      <div className="gain-container">
+      <p className="container-title" id="drums-settings">Settings</p>
+      <div className='fx-container drums-color' id="drums-container">
+      <div>
+         <p className="container-title">Volume</p>
+          <Knob
+          value={this.state.knobMainGain}
+          onChange={this.handleChangeMainGain.bind(this)}
+          onChangeEnd={this.handleChangeMainGain.bind(this)}
+          fgColor={'cornflowerblue'}
+          width={100}
+          height={100}
+          font={'"Bubbler One"'}
+          />
+          </div>
+
+      <div>
       <p>Resolution</p>
+      <div className="fx-select">
       <select onChange={this.selectResolution} value={this.state.resolution}>
       <option value="4">4</option>
       <option value="8">8</option>
       <option value="16">16</option>
       <option value="32">32</option>
       </select>
+      </div>
+      </div>
 
+      <div>
       <p>Bars</p>
+      <div className="fx-select">
       <select onChange={this.selectBars} value={this.state.bars}>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="4">4</option>
       </select>
+      </div>
+      </div>
+      </div>
+      </div>
 
-      <button onClick={this.handleClearSequence.bind(this)}>Clear the Sequence</button>
+      <div className="bit-container">
+      <p className="container-title" id="drums-bitcrusher">Bitcrusher</p>
+      <div className="fx-select fx-container drums-color" id="bitcrusher">
+      <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary" id="bitcrusher-button">{this.state.showOrHideBit}</button>
+      <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
+      <option value="4">4</option>
+      <option value="8">8</option>
+      <option value="16">16</option>
+      <option value="32">32</option>
+      </select>
+      </div>
+      </div>
 
       <div id="drum-sequencer">
       <table>
@@ -249,6 +315,8 @@ export default class Drums extends Component {
       </tbody>
       </table>
       </div>
+
+      <button onClick={this.handleClearSequence.bind(this)} className="btn button-primary" id="drums-clear-button">Clear the Sequence</button>
 
 
 
@@ -274,6 +342,7 @@ export default class Drums extends Component {
       />
 
       </Sequencer>
+
       </div>
 
       const hiddenDiv = {
@@ -294,7 +363,22 @@ export default class Drums extends Component {
       }
 
 
+      var bitCrushOnOff =
+      <div>
+      <Gain amount={this.state.mainGain}>
+          {DrumContainer}
+          </Gain>
+        </div>
 
+        if(this.state.showOrHideBit == "Disable"){
+            bitCrushOnOff = <div>
+            <Gain amount={this.state.mainGain}>
+            <Bitcrusher bits={this.state.bit}>
+                {DrumContainer}
+                </Bitcrusher>
+                </Gain>
+              </div>
+        }
 
     return (
 
@@ -304,7 +388,7 @@ export default class Drums extends Component {
         <h2 onClick={this.showOrHideContainer} style={activeStyle} className="title">DRUMS</h2>
         </div>
         <div>
-        {DrumContainer}
+        {bitCrushOnOff}
         </div>
         </div>
 

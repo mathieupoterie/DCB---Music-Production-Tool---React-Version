@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import Knob from 'react-canvas-knob';
 
-import {
-  Sequencer,
-  Synth,
-  Filter,
-  Monosynth,
-} from '../../src';
+import { Sequencer, Synth, Filter, Gain, Monosynth, Bitcrusher, } from '../../src';
 
 
 
@@ -15,13 +10,17 @@ export default class Bass extends Component {
         super(props);
 
         this.state = {
-            saw : "sine",
+            showOrHideBit : 'Enable',
+            bit : 8,
+            knobMainGain: 100,
+            mainGain: 1,
+            type : "sine",
             transpose : 0,
             steps : [],
             knobAttack : 20,
-            knobDecay : 50,
+            knobDecay : 20,
             attack : 0.2,
-            decay : 100,
+            decay : 1,
             knobGlide : 10,
             glide : 0.1,
             storedSteps : [],
@@ -60,6 +59,10 @@ export default class Bass extends Component {
         }
     }
 
+    handleChangeMainGain(e){
+        this.setState({knobMainGain: e, mainGain: (e/100)})
+    }
+
     selectResolution(e){
 
         var resolution = Number(e.target.value);
@@ -89,7 +92,7 @@ export default class Bass extends Component {
     selectSaw(e){
 
         var sawType = e.target.value;
-        this.setState({ saw : sawType})
+        this.setState({ type : sawType})
     }
 
 
@@ -138,10 +141,10 @@ export default class Bass extends Component {
 
     handleChangeDecay(e){
         if (e==0) {
-            return this.setState({knobDecay: e, decay: 2})
+            return this.setState({knobDecay: e, decay: 0.05})
         }
 
-        this.setState({knobDecay: e, decay: (e*2)})
+        this.setState({knobDecay: e, decay: (e/20)})
     }
 
     handleChangeAttack(e){
@@ -150,6 +153,18 @@ export default class Bass extends Component {
         }
 
         this.setState({knobAttack: e, attack: (e/100)})
+    }
+
+    selectBit(e){
+        this.setState({bit : Number(e.target.value)})
+    }
+
+    showOrHideBit(){
+        if (this.state.showOrHideBit == "Disable") {
+            this.setState({showOrHideBit : "Enable"})
+        }else {
+            this.setState({showOrHideBit : "Disable"})
+        }
     }
 
 
@@ -252,6 +267,8 @@ export default class Bass extends Component {
 
     handleClearSequence(){
         this.setState({
+            showOrHideBit : 'Enable',
+            bit : 8,
             steps : [],
             transpose : 0,
             storedSteps : [],
@@ -348,10 +365,22 @@ export default class Bass extends Component {
             )
         })
 
-
+        console.log(this.state.type, "type!");
         var bass =
             <div id="show-container" className="section">
                 <div>
+                <div className="gain-container">
+                <p>Volume</p>
+                <Knob
+                value={this.state.knobMainGain}
+                onChange={this.handleChangeMainGain.bind(this)}
+                onChangeEnd={this.handleChangeMainGain.bind(this)}
+                fgColor={'lightsalmon'}
+                width={100}
+                height={100}
+                font={'"Bubbler One"'}
+                />
+                </div>
                 {warning}
 
                 <p>Resolution</p>
@@ -388,12 +417,23 @@ export default class Bass extends Component {
 
 
                 <p>Saw</p>
-                <select onChange={this.selectSaw} value={this.state.saw}>
+                <select onChange={this.selectSaw} value={this.state.type}>
                 <option value="sine">sine</option>
                 <option value="square">square</option>
                 <option value="triangle">triangle</option>
                 <option value="sawtooth">sawtooth</option>
                 </select>
+
+                <div className="bit-container">
+                <p>Bitcrusher</p>
+                <button onClick={this.showOrHideBit.bind(this)}>{this.state.showOrHideBit}</button>
+                <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
+                <option value="4">4</option>
+                <option value="8">8</option>
+                <option value="16">16</option>
+                <option value="32">32</option>
+                </select>
+                </div>
 
                 <div>
                 <button onClick={this.increaseOctave}>+ Octave</button>
@@ -421,7 +461,6 @@ export default class Bass extends Component {
                 <Sequencer resolution={this.state.resolution} bars={this.state.bars}>
                 <Monosynth
                 glide={this.state.glide}
-                type={this.state.saw}
                 transpose={this.state.transpose}
 
                 envelope={{
@@ -431,6 +470,7 @@ export default class Bass extends Component {
                     release: 0
                 }}
 
+                type={this.state.type}
                 steps={this.state.steps}
                 />
                 </Sequencer>
@@ -454,6 +494,24 @@ export default class Bass extends Component {
 
         }
 
+        var bitCrushOnOff =
+            <div>
+             <Gain amount={this.state.mainGain}>
+            {bassContainer}
+             </Gain>
+          </div>
+
+          if(this.state.showOrHideBit == "Disable"){
+              bitCrushOnOff =
+              <div>
+               <Gain amount={this.state.mainGain}>
+                <Bitcrusher bits={this.state.bit}>
+                {bassContainer}
+                </Bitcrusher>
+                </Gain>
+            </div>
+          }
+
 
         return (
 
@@ -463,7 +521,7 @@ export default class Bass extends Component {
             <h2 onClick={this.showOrHideContainer} style={activeStyle} className="title">BASS</h2>
             </div>
             <div>
-            {bassContainer}
+            {bitCrushOnOff}
             </div>
             </div>
         );

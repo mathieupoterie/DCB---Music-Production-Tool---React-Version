@@ -26,18 +26,279 @@ select{
     text-transform: capitalize;
 }
 
+table {
+    text-align: center;
+    position: relative;
+    top: 16px;
+    margin: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
 
 
 
 #generic-info{
     text-align: center;
     min-width: 171px;
-    font-size: small;
+    font-size: 16px;;
     margin: 0;
     padding: 10px;
     background: gold;
     color: white;
 }
+
+.btn{
+    position: relative;
+    display: inline-block;
+    top: 44px;
+    padding: 4px 5px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.button-primary{
+    color: white;
+}
+
+.container-title:hover{
+    color: white;
+    background: rgb(215, 87, 31)
+}
+
+.button-primary:hover{
+
+background-color: gold;
+}
+
+
+.drum-step{
+    border : 1px solid black;
+    width : 40px;
+    height: 30px;
+}
+
+.gain-container{
+    position: relative;
+    display: inline-block;
+}
+
+.gain-container p{
+    text-align: center;
+}
+
+
+.bpm-control{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+#info-bpm{
+    margin-top: 16px;
+    margin-bottom: 5px;
+}
+
+#bpm-control{
+    position: relative;
+}
+
+#bpm-control p {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.reverb-container h4, .filter-container h4, .delay-container h4, .harmony-container h4{
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    background: gold;
+    font-size: 20px;
+    border-radius: 3px;
+
+}
+
+#bitcrusher{
+    flex-direction: column;
+    display: flex;
+}
+
+#bitcrusher button, #bitcrusher select{
+    position: relative;
+    left: 50%;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    transform: translate(-50%);
+    margin-top : 5px;
+    width: 80px;
+}
+
+#bitcrusher-button{
+    top:0;
+    margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    background: cornflowerblue;
+
+}
+
+#bitcrusher-button:hover{
+    background: black;
+}
+
+#drums-container{
+    margin-bottom: 40px;
+}
+
+#drums-container select{
+    margin-bottom: 40px;
+    position: relative;
+    width: 75px;
+}
+
+#drums-clear-button{
+    margin-top: 20px;
+    font-size: 18px;
+    top : 0;
+    background: cornflowerblue;
+}
+
+#drums-clear-button:hover{
+    top : 0;
+    color : black;
+}
+
+
+#drums-settings, #drums-bitcrusher{
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    background: cornflowerblue;
+    font-size: 20px;
+    border-radius: 3px;
+    color: white
+}
+
+#chords-settings{
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    background: mediumaquamarine;
+    font-size: 20px;
+    border-radius: 3px;
+    color: white
+}
+
+#chords-container div p{
+    top: -12px;
+    position: relative;
+}
+
+#chords-container select{
+    position: relative;
+    width: 75px;
+}
+
+#chords-sequencer{
+    height: 210px
+}
+
+
+#drums-bitcrusher{
+    margin-bottom: 0;
+    top: 10px;
+    position: relative;
+}
+
+#chords-bitcrusher{
+    margin-bottom: 0;
+    top: 10px;
+    position: relative;
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    background: mediumaquamarine;
+    font-size: 20px;
+    border-radius: 3px;
+    color: white
+}
+
+.reverb-container, .filter-container, .delay-container, .harmony-container{
+    text-align: center;
+
+}
+
+.fx-select{
+    position: relative;
+    top: 31px;
+}
+
+.fx-container{
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    width: 560px;
+    left: 50%;
+    transform: translate(-50%);
+    position: relative;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+}
+
+.generic-color{
+    border : 1px dashed gold;
+}
+
+.drums-color{
+    border : 1px dashed cornflowerblue;
+    padding: 20px 0px 20px 0px;
+}
+
+.chords-color{
+    border : 1px dashed mediumaquamarine;
+    padding: 20px 0px 20px 0px;
+}
+
+#harmonic-info{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+
+#harmonic-info div{
+    margin : 10px;
+    text-align: center;
+    padding : 10px;
+}
+
+#harmonic-info select{
+    width: 75px;
+}
+
+#chords-bitcrusher select{
+    position: relative;
+    top: 6px;
+}
+
+#saw-container select{
+    position: relative;
+    top: -15px;
+}
+
 
 #page-title span:first-child{
     color : cornflowerblue;
@@ -57,19 +318,31 @@ select{
      animation: blinker 1s linear infinite;
 }
 
-#melody-sequencer .steps-row td:nth-child(4n+2){
+#chords-sequencer .steps-row td:nth-child(4n+2){
     background: mediumaquamarine;
+    color: white;
     border-radius: 3px;
+    position: relative;
+    height: 30px;
+    font-weight: 900;
 }
 
 #bass-sequencer .steps-row td:nth-child(4n+2){
     background: lightsalmon;
     border-radius: 3px;
+    color: white;
+    position: relative;
+    height: 30px;
+    font-weight: 900;
 }
 
 #drum-sequencer .steps-row td:nth-child(4n+2){
     background: cornflowerblue;
+    color: white;
     border-radius: 3px;
+    position: relative;
+    height: 30px;
+    font-weight: 900;
 }
 
 
@@ -98,7 +371,7 @@ select{
 }
 
 .title-image-container{
-    margin-left: 50px;
+    margin-left: 80px;
     display: flex;
 }
 
@@ -107,22 +380,28 @@ select{
 }
 
 
+.checked{
+    background : cornflowerblue;
+    border: 1px dashed white;
+}
 
-/*Melody*/
 
-#melody-container, #drum-container, #bass-container{
+
+/*chords*/
+
+#chords-container, #drum-container, #bass-container{
     text-align: center;
 }
 
 
-#melody-sequencer, #drum-sequencer, #bass-sequencer{
+#chords-sequencer, #drum-sequencer, #bass-sequencer{
     position: relative;
-    left: 55%;
+    left: 50%;
     transform: translate(-50%);
     overflow-x: auto;
     width: 80%;
 }
-#melody-sequencer{
+#chords-sequencer{
     border : 1px mediumaquamarine dotted;
 
 }
@@ -130,6 +409,8 @@ select{
 
 #drum-sequencer{
     border : 1px cornflowerblue dotted;
+    margin-top: 19px;
+    height: 225px;
 }
 
 #bass-sequencer{
@@ -144,11 +425,12 @@ select{
     position: relative;
     text-align: center;
     margin: 0;
-    font-size: 80px;
+    font-size: 100px;
 }
 
 #page-subtitle{
-    font-size: 16px;
+    font-size: 18px;
+    font-style: italic;
     padding-bottom: 50px;
     letter-spacing: 3px;
     margin-top: 5px;

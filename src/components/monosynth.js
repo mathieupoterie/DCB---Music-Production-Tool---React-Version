@@ -136,6 +136,13 @@ export default class Monosynth extends Component {
     this.osc.stop();
     this.connectNode.disconnect();
   }
+
+  componentWillReceiveProps(nextProps) {
+      console.log("nextProps", nextProps);
+      if(nextProps.type){
+          this.osc.type = nextProps.type;
+      }
+  }
   getSteps(playbackTime: number) {
     const totalBars = this.context.getMaster().getMaxBars();
     const loopCount = totalBars / this.context.bars;

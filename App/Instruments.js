@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import {
     Analyser,
+    Chorus,
+    MoogFilter,
     Song,
     Sequencer,
     Sampler,
@@ -13,7 +15,6 @@ import {
     Monosynth,
 } from '../src';
 
-import Melody from './Melody/Melody'
 import Chords from './Chords/Chords'
 import Drums from './Drums/Drums'
 import Bass from './Bass/Bass'
@@ -29,9 +30,31 @@ export default class Instruments extends Component {
         super(props);
 
         this.state = {
-            filterFrequency: 1000,
-            knobFilterFrequency: 50,
-            filterType: 'lowpass',
+            knobFilterQ : 0,
+            filterQ : 0,
+            knobMainGain: 100,
+            mainGain: 1,
+            filterFrequency: 0,
+            rvbDry : 1,
+            rvbWet :0,
+            rvbDryWet : 0,
+            rvbHighCut :22000,
+            rvbLowCut : 100,
+            knobRvbDryWet : 0,
+            knobRvbHighCut :100,
+            knobRvbLowCut : 0,
+            knobFilterFrequency: 0,
+            filterType: 'highpass',
+            delayDry : 1,
+            delayWet : 0.25,
+            delayTime : 150,
+            delayFeedback : 0.25,
+            delayCutoff : 9000,
+            knobDelayDry :100,
+            knobDelayWet : 25,
+            valueDelayTime :"1/16",
+            knobDelayFeedback : 25,
+            knobDelayCutoff :75,
             playing: false,
             bpm : 90,
             rootnote : 'A',
@@ -43,31 +66,16 @@ export default class Instruments extends Component {
         this.setNotes = this.setNotes.bind(this);
         this.handleAudioProcess = this.handleAudioProcess.bind(this);
         this.handlePlayToggle = this.handlePlayToggle.bind(this);
-        this.handleBpmChange = this.handleBpmChange.bind(this);
-        this.handleBpmSubmit = this.handleBpmSubmit.bind(this);
         this.showOrHideContainer = this.showOrHideContainer.bind(this);
         this.selectFilterType = this.selectFilterType.bind(this);
         this.showOrHideVisualizer = this.showOrHideVisualizer.bind(this);
     }
 
-
-    handleBpmChange(e){
-        this.setState({
-            newBpm : e.target.value
-        })
+    handleChangeMainGain(e){
+        this.setState({knobMainGain: e, mainGain: (e/100)})
     }
 
-    handleBpmSubmit(){
-        var bpm = Number(this.state.newBpm);
-        if (bpm > 240) {
-            bpm = 240
-        }else if(bpm < 20){
-            bpm = 20
-        }
-        this.setState({
-            bpm : bpm
-        })
-    }
+
 
     selectGroudNote(e){
         this.setNotes(e.target.value, this.state.scale)
@@ -212,13 +220,49 @@ export default class Instruments extends Component {
         })
     }
 
+    handleRvbHighCut(e){
+        this.setState({rvbHightCut : e*220, knobRvbHighCut : e})
+    }
+    handleRvbDryWet(e){
+        this.setState({rvbDry : 1 - (e/100), rvbWet : e/100, rvbDryWet : e/100,  knobRvbDryWet : e})
+    }
+
+    handleRvbLowCut(e){
+        this.setState({rvbLowCut : e*220, knobRvbLowCut : e})
+    }
+
     selectFilterType(e){
         console.log(e.target);
         this.setState({filterType : e.target.value})
     }
 
     handleFilterFrequency(e){
-        this.setState({filterFrequency : e*14 , knobFilterFrequency : e })
+        this.setState({filterFrequency : e*75 , knobFilterFrequency : e })
+    }
+
+    handleFilterQ(e){
+        this.setState({filterQ : e/4 , knobFilterQ : e })
+    }
+
+    handleknobDelayCutoff(e){
+        this.setState({delayCutoff : e*120, knobDelayCutoff : e})
+    }
+
+    handleknobDelayFeedback(e){
+        this.setState({delayFeedback : e/100, knobDelayFeedback : e})
+    }
+
+    handleknobDelayDry(e){
+        this.setState({delayDry : e/100 , knobDelayDry : e })
+    }
+
+    handleknobDelayWet(e){
+        this.setState({delayWet : e/100, knobDelayWet : e})
+    }
+
+    selectDelayTime(e){
+        var time = Number(e.target.value);
+        this.setState({delayTime : time, valueDelayTime : e.target.value})
     }
 
     showOrHideContainer(){
@@ -237,87 +281,296 @@ export default class Instruments extends Component {
         }
     }
 
+    showOrHideHarmony(){
+        if(this.state.showHarmony){
+            this.setState({showHarmony : null})
+        }else {
+            this.setState({showHarmony : true})
+        }
+    }
+
+    showOrHideDelay(){
+        if(this.state.showDelay){
+            this.setState({showDelay : null})
+        }else {
+            this.setState({showDelay : true})
+        }
+    }
+
+    showOrHideFilter(){
+        if(this.state.showFilter){
+            this.setState({showFilter : null})
+        }else {
+            this.setState({showFilter : true})
+        }
+    }
+
+    showOrHideReverb(){
+        if(this.state.showReverb){
+            this.setState({showReverb : null})
+        }else {
+            this.setState({showReverb : true})
+        }
+    }
+
 
     render() {
 
-        let activeStyleVisualizer =  {color : 'black'}
+        let activeStyleVisualizer =  {color : 'black'};
+        let showHamonyContainer = {position: "absolute", top : "-1000px"};
 
         var visualizerStyle = {position : 'absolute', top : '-1000px'};
         if (this.state.showVisualizer) {
             visualizerStyle = {position : 'relative', top : '0px'};
             activeStyleVisualizer =  {color : 'gold'}
         }
+
+        var pointerHarmony = "+";
+
+        if (this.state.showHarmony) {
+            showHamonyContainer = {background : 'none'};
+            pointerHarmony = '-'
+        }
+
+        var pointerReverb = "+";
+        var showReverbContainer = {position: "absolute", top : "-1000px"};
+        if (this.state.showReverb) {
+            showReverbContainer = {background : 'none'};
+            pointerReverb = '-'
+        }
+
+        var pointerFilter = "+";
+        var showFilterContainer = {position: "absolute", top : "-1000px"}
+        if (this.state.showFilter) {
+            showFilterContainer = {background : 'none'};
+            pointerFilter = '-'
+        }
+
+        var pointerDelay = "+";
+        var showDelayContainer= {position: "absolute", top : "-1000px"}
+
+        if (this.state.showDelay) {
+            showDelayContainer = {background : 'none'};
+            pointerDelay = '-'
+        }
         var genericContainer = "";
         let activeStyle = {color : 'black'}
         if(this.state.showContainer){
             activeStyle = {color : 'gold'}
-            genericContainer = <div id="generic-setup">
+            genericContainer =
+            <div id="generic-setup">
+                <div className="harmony-container">
+                    <h4 className="container-title" onClick={this.showOrHideHarmony.bind(this)} >Harmony and Tempo    {pointerHarmony}</h4>
+                    <div className='fx-container generic-color' style={showHamonyContainer}>
+                        <div className="gain-container">
+                            <div>
+                                <p>Volume</p>
+                                <Knob
+                                value={this.state.knobMainGain}
+                                onChange={this.handleChangeMainGain.bind(this)}
+                                onChangeEnd={this.handleChangeMainGain.bind(this)}
+                                fgColor={'gold'}
+                                width={100}
+                                height={100}
+                                font={'"Bubbler One"'}
+                                />
+                            </div>
+                        </div>
 
+                        <div className='bpm-control left'>
 
+                            <div className='actions' id="bpm-control" >
+                                <div id="info-bpm">{this.state.bpm} bpm</div>
+                                <button  className="btn button-primary" onClick={this._onDecrement10BPM.bind(this)}>-10</button>
+                                <button className="btn button-primary" onClick={this._onDecrementBPM.bind(this)}>-1</button>
+                                <button className="btn button-primary" onClick={this._onIncrementBPM.bind(this)}>+1</button>
+                                <button className="btn button-primary" onClick={this._onIncrement10BPM.bind(this)}>+10</button>
+                            </div>
+                        </div>
 
-            <div className='bpm control left'>
-            <div>{this.state.bpm} bpm</div>
+                        <div id="harmonic-info">
+                            <div>
+                                <p>Root note</p>
+                                    <select onChange={this.selectGroudNote} value={this.state.rootnote}>
+                                        <option value="A">A</option>
+                                        <option value="Bb">Bb</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="C#">C#</option>
+                                        <option value="D">D</option>
+                                        <option value="Eb">Eb</option>
+                                        <option value="E">E</option>
+                                        <option value="F">F</option>
+                                        <option value="F#">F#</option>
+                                        <option value="G">G</option>
+                                        <option value="Ab">Ab</option>
+                                    </select>
+                            </div>
 
-            <div className='actions'>
-            <p>Select your BPM (between 20 and 240)</p>
-            <input type="text" onChange={this.handleBpmChange}/>
-            <button onClick={this.handleBpmSubmit}>Submit BPM</button>
-            <button onClick={this._onDecrement10BPM.bind(this)}>-10</button>
-            <button onClick={this._onDecrementBPM.bind(this)}>-1</button>
-            <button onClick={this._onIncrementBPM.bind(this)}>+1</button>
-            <button onClick={this._onIncrement10BPM.bind(this)}>+10</button>
-            </div>
-            </div>
+                            <div>
+                                <p>Scale</p>
+                                <select onChange={this.selectScale} value={this.state.scale}>
+                                    <option value="major">Major</option>
+                                    <option value="minor">Minor</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div className="reverb-container" >
+                    <h4 className="container-title" onClick={this.showOrHideReverb.bind(this)}>Reverb {pointerReverb}</h4>
+                    <div className="fx-container generic-color" style={showReverbContainer}>
+                        <div>
+                            <p>Dry/Wet</p>
+                            <Knob
+                              value={this.state.knobRvbDryWet}
+                              onChange={this.handleRvbDryWet.bind(this)}
+                              onChangeEnd={this.handleRvbDryWet.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
 
-            <p>Root note</p>
-            <select onChange={this.selectGroudNote} value={this.state.rootnote}>
-            <option value="A">A</option>
-            <option value="Bb">Bb</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="C#">C#</option>
-            <option value="D">D</option>
-            <option value="Eb">Eb</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="F#">F#</option>
-            <option value="G">G</option>
-            <option value="Ab">Ab</option>
-            </select>
+                        <div>
+                            <p>Highcut</p>
+                            <Knob
+                              value={this.state.knobRvbHighCut}
+                              onChange={this.handleRvbHighCut.bind(this)}
+                              onChangeEnd={this.handleRvbHighCut.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
 
-            <p>Scale</p>
-            <select onChange={this.selectScale} value={this.state.scale}>
-            <option value="major">Major</option>
-            <option value="minor">Minor</option>
-            </select>
+                        <div>
+                            <p>Lowcut</p>
+                            <Knob
+                              value={this.state.knobRvbLowCut}
+                              onChange={this.handleRvbLowCut.bind(this)}
+                              onChangeEnd={this.handleRvbLowCut.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-            <div>
-            <p>Frequency</p>
-            <Knob
-              value={this.state.knobFilterFrequency}
-              onChange={this.handleFilterFrequency.bind(this)}
-              onChangeEnd={this.handleFilterFrequency.bind(this)}
-              fgColor={'gold'}
-              width={100}
-              height={100}
-              font={'"Bubbler One"'}
-            />
-            <p>FilterType</p>
-            <select onChange={this.selectFilterType} value={this.state.filterType}>
-                <option value="lowpass">lowpass</option>
-                <option value="highpass">highpass</option>
-                <option value="bandpass">bandpass</option>
-                <option value="lowshelf">lowshelf</option>
-                <option value="highshelf">highshelf</option>
-                <option value="peaking">peaking</option>
-                <option value="notch">notch</option>
-                <option value="allpass">allpass</option>
-            </select>
-            </div>
+                <div className="filter-container">
+                    <h4 className="container-title" onClick={this.showOrHideFilter.bind(this)}>Filter {pointerFilter}</h4>
+                    <div className="fx-container generic-color" style={showFilterContainer}>
+                        <div>
+                            <p>Frequency</p>
+                                <Knob
+                                  value={this.state.knobFilterFrequency}
+                                  onChange={this.handleFilterFrequency.bind(this)}
+                                  onChangeEnd={this.handleFilterFrequency.bind(this)}
+                                  fgColor={'gold'}
+                                  width={100}
+                                  height={100}
+                                  font={'"Bubbler One"'}
+                                />
+                        </div>
 
+                        <div>
+                            <p>Q</p>
+                            <Knob
+                              value={this.state.knobFilterQ}
+                              onChange={this.handleFilterQ.bind(this)}
+                              onChangeEnd={this.handleFilterQ.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
 
-            <h3 id="for-closing" onClick={this.showOrHideContainer}>Done with the Settings ?</h3>
+                        <div>
+                            <p>FilterType</p>
+                            <select className="fx-select" onChange={this.selectFilterType} value={this.state.filterType}>
+                                <option value="lowpass">lowpass</option>
+                                <option value="highpass">highpass</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="delay-container" onClick={this.showOrHideDelay.bind(this)}>
+                    <h4 className="container-title">Delay {pointerDelay}</h4>
+                    <div className="fx-container generic-color" style={showDelayContainer}>
+                        <div>
+                            <p>Cutoff</p>
+                            <Knob
+                              value={this.state.knobDelayCutoff}
+                              onChange={this.handleknobDelayCutoff.bind(this)}
+                              onChangeEnd={this.handleknobDelayCutoff.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+
+                        <div>
+                            <p>Feedback</p>
+                            <Knob
+                              value={this.state.knobDelayFeedback}
+                              onChange={this.handleknobDelayFeedback.bind(this)}
+                              onChangeEnd={this.handleknobDelayFeedback.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+
+                        <div>
+                            <p>Dry</p>
+                            <Knob
+                              value={this.state.knobDelayDry}
+                              onChange={this.handleknobDelayDry.bind(this)}
+                              onChangeEnd={this.handleknobDelayDry.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+
+                        <div>
+                            <p>Wet</p>
+                            <Knob
+                              value={this.state.knobDelayWet}
+                              onChange={this.handleknobDelayWet.bind(this)}
+                              onChangeEnd={this.handleknobDelayWet.bind(this)}
+                              fgColor={'gold'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+
+                        <div>
+                            <p>Time</p>
+                            <select className="fx-select" onChange={this.selectDelayTime.bind(this)} value={this.state.valueDelayTime}>
+                                <option value="75">1/32</option>
+                                <option value="100">1/24</option>
+                                <option value="150">1/16</option>
+                                <option value="200">1/12</option>
+                                <option value="300">1/8</option>
+                                <option value="450">1/6</option>
+                                <option value="600">1/4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
 
@@ -328,18 +581,23 @@ export default class Instruments extends Component {
             isPlaying = "./pause.svg"
         }
 
+        var isPlayingTop = "./play2.svg"
+        if(this.state.playing){
+            isPlayingTop = "./pause2.svg"
+        }
+
 
 
         return (
 
             <div>
 
-            <img src={isPlaying} onClick={this.handlePlayToggle} id="playing-button1"/>
+            <img src={isPlayingTop} onClick={this.handlePlayToggle} id="playing-button1"/>
 
             <div id="page-title-container">
             <h1 id="page-title"><span id="title1">D</span><span id="title1">C</span><span id="title1">B</span></h1>
             <h1 id="page-subtitle">decibel, an intuitive music production tool on your browser</h1>
-            <p id="generic-info">You are composing a song in <span>{this.state.rootnote} {this.state.scale}</span>, with a tempo of <span>{this.state.bpm} bpm </span>!</p>
+            <p id="generic-info">You are composing a song in <span>{this.state.rootnote} {this.state.scale}</span>, at a tempo of <span>{this.state.bpm} bpm </span>!</p>
             </div>
 
 
@@ -358,12 +616,21 @@ export default class Instruments extends Component {
             tempo={this.state.bpm}
             >
             <Analyser onAudioProcess={this.handleAudioProcess}>
-            <Gain>
-            <Filter frequency={this.state.filterFrequency} type={this.state.filterType}>
-            <Reverb>
-            <Delay>
+            <Gain amount={this.state.mainGain}>
+            <Filter frequency={this.state.filterFrequency} type={this.state.filterType} Q={this.state.filterQ}>
+            <Reverb
+            dryLevel={this.state.rvbDry}
+            highCut={this.state.rvbHightCut}
+            lowCut={this.state.rvbLowCut}
+            wetLevel={this.state.rvbWet}>
+            <Delay
+                cutoff={this.state.delayCutoff}
+                delayTime={this.state.delayTime}
+                dryLevel={this.state.delayDry}
+                feedback={this.state.delayFeedback}
+                wetLevel={this.state.delayWet}>
             <Drums />
-            <Melody rootnote={this.state.rootnote} scale={this.state.scale} notes={this.state.notes} />
+            <Chords rootnote={this.state.rootnote} scale={this.state.scale} notes={this.state.notes} />
 
             <Bass rootnote={this.state.rootnote} scale={this.state.scale} notes={this.state.notes}/>
 
@@ -389,41 +656,3 @@ export default class Instruments extends Component {
         );
     }
 }
-
-// REVERB
-// highCut: props.highCut,
-// lowCut: props.lowCut,
-// dryLevel: props.dryLevel,
-// wetLevel: props.wetLevel,
-// level: props.level,
-// impulse: props.impulse,
-// bypass: props.bypass,
-// bypass: 0,
-// dryLevel: 0.5,
-// highCut: 22050,
-// impulse: 'reverb/room.wav',
-// level: 1,
-// lowCut: 20,
-// wetLevel: 1,
-
-
-// Delay
-// this.connectNode = new tuna.Delay({
-//       feedback: props.feedback,
-//       delayTime: props.delayTime,
-//       wetLevel: props.wetLevel,
-//       dryLevel: props.dryLevel,
-//       cutoff: props.cutoff,
-//       bypass: props.bypass,
-//     });
-//
-//     bypass: 0,
-//     cutoff: 2000,
-//     delayTime: 150,
-//     dryLevel: 1,
-//     feedback: 0.45,
-//     wetLevel: 0.25,
-
-
-// Gain
-// value ou amount
