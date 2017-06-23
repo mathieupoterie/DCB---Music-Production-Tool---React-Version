@@ -256,6 +256,14 @@ export default class Chords extends Component {
         }
     }
 
+    showOrHideSettings(){
+        if(this.state.showSettings){
+            this.setState({showSettings : null})
+        }else {
+            this.setState({showSettings : true})
+        }
+    }
+
 
     render() {
         console.log("STATE", this.state);
@@ -328,47 +336,56 @@ export default class Chords extends Component {
             )
         })
 
+        var pointerSettings = "+";
+        var showSettingsContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showSettings) {
+            showSettingsContainer = {background : 'none'};
+            pointerSettings = '-'
+        }
+
 
         var chords =
                 <div  className="section">
                 {warning}
 
                 <div>
-                <p className="container-title" id="chords-settings">Settings</p>
-                <div className='fx-container chords-color' id="chords-container">
-                <div className="gain-container">
-                <p>Volume</p>
-                <Knob
-                value={this.state.knobMainGain}
-                onChange={this.handleChangeMainGain.bind(this)}
-                onChangeEnd={this.handleChangeMainGain.bind(this)}
-                fgColor={'mediumaquamarine'}
-                width={100}
-                height={100}
-                font={'"Bubbler One"'}
-                />
-                </div>
-                <div>
+                    <p className="container-title chords-titles"  onClick={this.showOrHideSettings.bind(this)}>Settings  {pointerSettings}</p>
+                    <div className='fx-container chords-color' id="chords-container" style={showSettingsContainer}>
+                        <div>
+                            <p>Volume</p>
+                            <Knob
+                            value={this.state.knobMainGain}
+                            onChange={this.handleChangeMainGain.bind(this)}
+                            onChangeEnd={this.handleChangeMainGain.bind(this)}
+                            fgColor={'mediumaquamarine'}
+                            width={100}
+                            height={100}
+                            font={'"Bubbler One"'}
+                            />
+                        </div>
 
-                <p>Resolution</p>
-                <select onChange={this.selectResolution} value={this.state.resolution}>
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="16">16</option>
-                <option value="32">32</option>
-                </select>
+                        <div>
 
-                </div>
+                            <p>Resolution</p>
+                            <select className="select-items" onChange={this.selectResolution} value={this.state.resolution}>
+                                <option value="4">4</option>
+                                <option value="8">8</option>
+                                <option value="16">16</option>
+                                <option value="32">32</option>
+                            </select>
 
-                <div>
-                <p>Bars</p>
-                <select onChange={this.selectBars} value={this.state.bars}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                </select>
-                </div>
-                </div>
+                        </div>
+
+                        <div>
+                            <p>Bars</p>
+                            <select className="select-items" onChange={this.selectBars} value={this.state.bars}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -384,7 +401,9 @@ export default class Chords extends Component {
 
                 </Sequencer>
 
+                <div className='chorus-container' id="chords-sequencer-container">
 
+                <p className="chords-titles" id="chords-filter">Sequencer</p>
                 <div id="chords-sequencer">
                 <table>
                 <thead>
@@ -397,8 +416,8 @@ export default class Chords extends Component {
                 </tbody>
                 </table>
                 </div>
-                <button onClick={this.handleClearSequence}>Clear the Sequence</button>
-
+                <button className="btn button-primary" id="chords-clear-button"  onClick={this.handleClearSequence}>Clear the Sequence</button>
+                </div>
                 </div>
 
 

@@ -103,14 +103,44 @@ export default class Polysynth extends Component {
 
   }
 
+  showOrHideSaw(){
+      if(this.state.showSaw){
+          this.setState({showSaw : null})
+      }else {
+          this.setState({showSaw : true})
+      }
+  }
+
+  showOrHideBitcrusher(){
+      if(this.state.showBitcrusher){
+          this.setState({showBitcrusher : null})
+      }else {
+          this.setState({showBitcrusher : true})
+      }
+  }
+
+  showOrHideFilter(){
+      if(this.state.showFilter){
+          this.setState({showFilter : null})
+      }else {
+          this.setState({showFilter : true})
+      }
+  }
+
+  showOrHideChorus(){
+      if(this.state.showChorus){
+          this.setState({showChorus : null})
+      }else {
+          this.setState({showChorus : true})
+      }
+  }
+
 
 
 
 
 
   render() {
-      console.log("STATE", this.state);
-
 
       var SynthChorus = <div><Chorus
          delay= {0.0045}
@@ -151,10 +181,10 @@ export default class Polysynth extends Component {
       }
 
       var bitCrushOnOff =
-      <div>
-              <Reverb>
-                  {SynthChorus}
-              </Reverb>
+        <div>
+            <Reverb>
+                {SynthChorus}
+            </Reverb>
         </div>
 
         if(this.state.showOrHideBit == "Disable"){
@@ -167,111 +197,155 @@ export default class Polysynth extends Component {
               </div>
         }
 
+        var pointerSaw = "+";
+        var showSawContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showSaw) {
+            showSawContainer = {background : 'none'};
+            pointerSaw = '-'
+        }
+
+        var pointerBitcrusher = "+";
+        var showBitcrusherContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showBitcrusher) {
+            showBitcrusherContainer = {background : 'none'};
+            pointerBitcrusher = '-'
+        }
+
+        var pointerFilter = "+";
+        var showFilterContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showFilter) {
+            showFilterContainer = {background : 'none'};
+            pointerFilter = '-'
+        }
+
+        var pointerChorus = "+";
+        var showChorusContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showChorus) {
+            showChorusContainer = {background : 'none'};
+            pointerChorus = '-'
+        }
     return (
         <div>
-            <div id="polysynth-fx-container">
-            <p className="container-title" id="chords-settings">Saw</p>
-                <div id="saw-container" className='fx-container chords-color'>
-                <div>
-                    <p>Saw 1</p>
-                    <select onChange={this.selectSaw1.bind(this)} value={this.state.saw1}>
-                        <option value="sine">sine</option>
-                        <option value="square">square</option>
-                        <option value="triangle">triangle</option>
-                        <option value="sawtooth">sawtooth</option>
-                    </select>
+            <div id="polysynth-fx-container" id="chords-container">
+            <p className="container-title chords-titles" onClick={this.showOrHideSaw.bind(this)}>Saw  {pointerSaw}</p>
+                <div id="saw-container" className='fx-container chords-color' style={showSawContainer}>
+                    <div>
+                        <p>Saw 1</p>
+                        <select onChange={this.selectSaw1.bind(this)} value={this.state.saw1}>
+                            <option value="sine">sine</option>
+                            <option value="square">square</option>
+                            <option value="triangle">triangle</option>
+                            <option value="sawtooth">sawtooth</option>
+                        </select>
 
-                    <p>Gain</p>
-                    <Knob
-                    value={this.state.knobGainSaw1}
-                    onChange={this.handleChangeGainSaw1.bind(this)}
-                    onChangeEnd={this.handleChangeGainSaw1.bind(this)}
-                    fgColor={'mediumaquamarine'}
-                    width={100}
-                    height={100}
-                    font={'"Bubbler One"'}
-                    />
+                        <p>Gain</p>
+                        <Knob
+                        value={this.state.knobGainSaw1}
+                        onChange={this.handleChangeGainSaw1.bind(this)}
+                        onChangeEnd={this.handleChangeGainSaw1.bind(this)}
+                        fgColor={'mediumaquamarine'}
+                        width={100}
+                        height={100}
+                        font={'"Bubbler One"'}
+                        />
 
-                </div>
+                    </div>
 
-                <div>
+                    <div>
 
-                    <p>Saw 2</p>
-                    <select onChange={this.selectSaw2.bind(this)} value={this.state.saw2}>
-                        <option value="sine">sine</option>
-                        <option value="square">square</option>
-                        <option value="triangle">triangle</option>
-                        <option value="sawtooth">sawtooth</option>
-                    </select>
-                    <p>Gain</p>
-                    <Knob
-                      value={this.state.knobGainSaw2}
-                      onChange={this.handleChangeGainSaw2.bind(this)}
-                      onChangeEnd={this.handleChangeGainSaw2.bind(this)}
-                      fgColor={'mediumaquamarine'}
-                      width={100}
-                      height={100}
-                      font={'"Bubbler One"'}/>
+                        <p>Saw 2</p>
+                        <select onChange={this.selectSaw2.bind(this)} value={this.state.saw2}>
+                            <option value="sine">sine</option>
+                            <option value="square">square</option>
+                            <option value="triangle">triangle</option>
+                            <option value="sawtooth">sawtooth</option>
+                        </select>
+                        <p>Gain</p>
+                        <Knob
+                          value={this.state.knobGainSaw2}
+                          onChange={this.handleChangeGainSaw2.bind(this)}
+                          onChangeEnd={this.handleChangeGainSaw2.bind(this)}
+                          fgColor={'mediumaquamarine'}
+                          width={100}
+                          height={100}
+                          font={'"Bubbler One"'}/>
 
-                </div>
+                    </div>
 
 
                 </div>
 
                 <div className="bit-container">
-                <p className="container-title" id="chords-bitcrusher">Bitcrusher</p>
-                <div className="fx-select fx-container chords-color" id="bitcrusher">
-                <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary" id="bitcrusher-button">{this.state.showOrHideBit}</button>
-                <select id="chords-bitcrusher" onChange={this.selectBit.bind(this)} value={this.state.bit}>
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="16">16</option>
-                <option value="32">32</option>
-                </select>
-                </div>
-                </div>
-
-                    <div className="filter-container">
-                        <p>Frequency</p>
-                        <Knob
-                          value={this.state.knobFilterFrequency}
-                          onChange={this.handleFilterFrequency.bind(this)}
-                          onChangeEnd={this.handleFilterFrequency.bind(this)}
-                          fgColor={'mediumaquamarine'}
-                          width={100}
-                          height={100}
-                          font={'"Bubbler One"'}
-                        />
-                        <p>Q</p>
-                        <Knob
-                          value={this.state.knobFilterQ}
-                          onChange={this.handleFilterQ.bind(this)}
-                          onChangeEnd={this.handleFilterQ.bind(this)}
-                          fgColor={'mediumaquamarine'}
-                          width={100}
-                          height={100}
-                          font={'"Bubbler One"'}
-                        />
-                        <p>FilterType</p>
-                        <select onChange={this.selectFilterType} value={this.state.filterType}>
-                            <option value="lowpass">lowpass</option>
-                            <option value="highpass">highpass</option>
+                    <p className="container-title chords-titles" id="chords-bitcrusher" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
+                    <div className="fx-select fx-container chords-color" id="bitcrusher" style={showBitcrusherContainer}>
+                        <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary bitcrusher-button" id="bitcrusher-button-chords">{this.state.showOrHideBit}</button>
+                        <select id="chords-bitcrusher select-items" onChange={this.selectBit.bind(this)} value={this.state.bit}>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                            <option value="16">16</option>
+                            <option value="32">32</option>
                         </select>
                     </div>
+                </div>
 
-                    <div className="chorus-container">
-                        <p>Chorus {this.state.disableFx}</p>
-                        <Knob
-                          value={this.state.knobChorusRate}
-                          onChange={this.handleChorusRate.bind(this)}
-                          onChangeEnd={this.handleChorusRate.bind(this)}
-                          fgColor={this.state.fgColor}
-                          width={100}
-                          height={100}
-                          font={'"Bubbler One"'}
+                    <div className="filter-chords-container">
+                    <h4 className="container-title chords-titles" id="chords-filter" onClick={this.showOrHideFilter.bind(this)}>Filter {pointerFilter}</h4>
+                    <div className="fx-container chords-color"  id="responsive-fix" style={showFilterContainer}>
+                        <div>
+                            <p>Frequency</p>
+                            <Knob
+                              value={this.state.knobFilterFrequency}
+                              onChange={this.handleFilterFrequency.bind(this)}
+                              onChangeEnd={this.handleFilterFrequency.bind(this)}
+                              fgColor={'mediumaquamarine'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+                        <div>
+                            <p>Q</p>
+                            <Knob
+                              value={this.state.knobFilterQ}
+                              onChange={this.handleFilterQ.bind(this)}
+                              onChangeEnd={this.handleFilterQ.bind(this)}
+                              fgColor={'mediumaquamarine'}
+                              width={100}
+                              height={100}
+                              font={'"Bubbler One"'}
+                            />
+                        </div>
+                        <div>
+                            <p>FilterType</p>
+                            <select className="select-items" onChange={this.selectFilterType} value={this.state.filterType}>
+                                <option value="lowpass">lowpass</option>
+                                <option value="highpass">highpass</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-                        />
+                    <div className="chorus-container" id="chorus-wrapper">
+                        <p className="container-title chords-titles" id="chords-filter" onClick={this.showOrHideChorus.bind(this)}>Chorus {this.state.disableFx} {pointerChorus}</p>
+                        <div className="fx-select fx-container chords-color" style={showChorusContainer}>
+                            <div>
+                                <p>Rate</p>
+                                <Knob
+                                  value={this.state.knobChorusRate}
+                                  onChange={this.handleChorusRate.bind(this)}
+                                  onChangeEnd={this.handleChorusRate.bind(this)}
+                                  fgColor={this.state.fgColor}
+                                  width={100}
+                                  height={100}
+                                  font={'"Bubbler One"'}
 
+                                />
+                            </div>
+                        </div>
                     </div>
 
                 </div>

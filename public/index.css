@@ -80,7 +80,7 @@ table {
 
 .container-title:hover{
     color: white;
-    background: rgb(215, 87, 31)
+    background: black;
 }
 
 .button-primary:hover{
@@ -126,13 +126,27 @@ background-color: gold;
     margin-bottom: 5px;
 }
 
-.reverb-container h4, .filter-container h4, .delay-container h4, .harmony-container h4{
+.reverb-container h4, .delay-container h4, .filter-container h4, .harmony-container h4, .chorus-container h4{
     display: inline-block;
     padding: 0 20px 0 20px;
     background: gold;
     font-size: 20px;
     border-radius: 3px;
 
+}
+
+.filter-chords-container h4{
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    background: mediumaquamarine;
+    font-size: 20px;
+    border-radius: 3px;
+}
+
+#chorus-wrapper{
+    text-align: center;
+position: relative;
+margin-top: 47px;
 }
 
 #bitcrusher{
@@ -150,16 +164,38 @@ background-color: gold;
     width: 80px;
 }
 
-#bitcrusher-button{
+.bitcrusher-button{
     top:0;
     margin-bottom: 20px;
     margin-left: 0;
     margin-right: 0;
-    background: cornflowerblue;
 
 }
 
-#bitcrusher-button:hover{
+#bitcrusher-button-drums{
+    background: cornflowerblue;
+}
+
+#bitcrusher-button-bass{
+    background: lightsalmon;
+    display: block;
+    padding : 4px 5px 4px 5px;
+    font-size: 16px;
+}
+
+#bitcrusher-button-chords{
+    background: mediumaquamarine;
+}
+
+#bitcrusher-button-drums:hover{
+    background: black;
+}
+
+#bitcrusher-button-bass:hover{
+    background: black;
+}
+
+#bitcrusher-button-chords:hover{
     background: black;
 }
 
@@ -173,20 +209,65 @@ background-color: gold;
     width: 75px;
 }
 
+#chords-container .select-items, #bass-container .select-items {
+    margin-bottom: 40px;
+    position: relative;
+    width: 75px;
+    top : 32px;
+}
+
+#chords-sequencer table{
+    padding: 10px 14px 10px 12px;
+    margin: auto;
+    margin-top: 2px;
+    height: 206px;
+}
+
+
+
+
+#select-items{
+    position: relative;
+    width: 75px;
+}
+
 #drums-clear-button{
-    margin-top: 20px;
+    margin-top: 45px;
     font-size: 18px;
+    margin-bottom: 70px;
     top : 0;
     background: cornflowerblue;
 }
 
-#drums-clear-button:hover{
-    top : 0;
+
+#chords-clear-button{
+    margin-top: 20px;
+    font-size: 18px;
+    position: relative;
+    margin-bottom: 110px;
+    background: mediumaquamarine;
+}
+
+#bass-clear-button{
+    margin-top: 20px;
+    font-size: 18px;
+    position: relative;
+    margin-bottom: 110px;
+    background: lightsalmon;
+}
+
+#chords-sequencer-container{
+    position: relative;
+    top: 40px;
+}
+
+
+#drums-clear-button:hover, #chords-clear-button:hover, #bass-clear-button:hover{
     color : black;
 }
 
 
-#drums-settings, #drums-bitcrusher{
+#drums-settings, #drums-bitcrusher, #drums-sequencer{
     display: inline-block;
     padding: 0 20px 0 20px;
     background: cornflowerblue;
@@ -195,7 +276,23 @@ background-color: gold;
     color: white
 }
 
-#chords-settings{
+#drums-sequencer{
+    position: relative;
+    top: 18px;
+}
+
+#drums-sequencer-container{
+    position: relative;
+    top: 18px;
+}
+
+
+#drums-settings:hover, #drums-bitcrusher:hover{
+    color : white;
+    background: black;
+}
+
+.chords-titles{
     display: inline-block;
     padding: 0 20px 0 20px;
     background: mediumaquamarine;
@@ -204,20 +301,50 @@ background-color: gold;
     color: white
 }
 
-#chords-container div p{
-    top: -12px;
+.bass-titles{
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    background: lightsalmon;
+    font-size: 20px;
+    border-radius: 3px;
+    color: white
+}
+
+.bit-container, .filter-container, .filter-chords-container, .chorus-container{
     position: relative;
 }
 
-#chords-container select{
+#octave-bass-settings button{
     position: relative;
-    width: 75px;
+    top: 0px;
 }
+
+#octave-bass-settings button:hover{
+    background: lightsalmon
+}
+
+
+#chords-filter h4 {
+    color : mediumaquamarine;
+}
+#chords-container div p{
+    top: -9px;
+    position: relative;
+}
+
+
 
 #chords-sequencer{
-    height: 210px
+    height: 250px;
+    position: relative;
+    top: 21px;
 }
 
+#bass-sequencer{
+    height: 220px;
+    position: relative;
+    top: 21px;
+}
 
 #drums-bitcrusher{
     margin-bottom: 0;
@@ -225,19 +352,17 @@ background-color: gold;
     position: relative;
 }
 
-#chords-bitcrusher{
+#chords-bitcrusher, #chords-filter{
     margin-bottom: 0;
     top: 10px;
     position: relative;
     display: inline-block;
     padding: 0 20px 0 20px;
-    background: mediumaquamarine;
     font-size: 20px;
     border-radius: 3px;
-    color: white
 }
 
-.reverb-container, .filter-container, .delay-container, .harmony-container{
+.reverb-container, .filter-container, .filter-chords-container, .delay-container, .harmony-container, .chorus-container{
     text-align: center;
 
 }
@@ -270,6 +395,11 @@ background-color: gold;
 
 .chords-color{
     border : 1px dashed mediumaquamarine;
+    padding: 20px 0px 20px 0px;
+}
+
+.bass-color{
+    border : 1px dashed lightsalmon;
     padding: 20px 0px 20px 0px;
 }
 
@@ -440,7 +570,6 @@ background-color: gold;
 
 #playing-button2{
     width : 90px;
-    width: 90px;
 position: relative;
 left: 50%;
 transform: translate(-50%);
@@ -594,4 +723,44 @@ input:checked + .slider:before {
 #polyphonic, #bass, #drums, #settings{
     position: relative;
     width: 48px;
+}
+
+
+/*MEDIA QUERIES*/
+
+@media screen and (max-width: 790px) {
+  .fx-container, #drums-container {
+    width: 90%;
+  }
+  .fx-select{
+      top : 0;
+  }
+  .fx-container div{
+      margin : 22px;
+  }
+  .react-music-canvas{
+      width: 88%;
+  }
+  #responsive-fix{
+      top: 29px
+  }
+  #drums-bitcrusher{
+        margin-bottom: 30px;
+  }
+  .title-image-container{
+      margin-left: 15px;
+      width : 100%;
+  }
+  #chords-sequencer, #drum-sequencer, #bass-sequencer{
+      width: 92%;
+  }
+  #playing-button1{
+        right: 42px;
+        width: 51px;
+
+  }
+  .gain-container{
+      width: 100%
+  }
+
 }

@@ -288,6 +288,31 @@ export default class Bass extends Component {
         }
     }
 
+    showOrHideSettings(){
+        if(this.state.showSettings){
+            this.setState({showSettings : null})
+        }else {
+            this.setState({showSettings : true})
+        }
+    }
+
+    showOrHideBitcrusher(){
+        if(this.state.showBitcrusher){
+            this.setState({showBitcrusher : null})
+        }else {
+            this.setState({showBitcrusher : true})
+        }
+    }
+
+    showOrHideBassSound(){
+        if(this.state.showBassSound){
+            this.setState({showBassSound : null})
+        }else {
+            this.setState({showBassSound : true})
+        }
+    }
+
+
 
 
 
@@ -365,98 +390,145 @@ export default class Bass extends Component {
             )
         })
 
-        console.log(this.state.type, "type!");
+        var pointerSettings = "+";
+        var showSettingsContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showSettings) {
+            showSettingsContainer = {background : 'none'};
+            pointerSettings = '-'
+        }
+
+        var pointerBitcrusher = "+";
+        var showBitcrusherContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showBitcrusher) {
+            showBitcrusherContainer = {background : 'none'};
+            pointerBitcrusher = '-'
+        }
+
+        var pointerBassSound = "+";
+        var showBassSoundContainer= {position: "absolute", top : "-10000000px"}
+
+        if (this.state.showBassSound) {
+            showBassSoundContainer = {background : 'none'};
+            pointerBassSound = '-'
+        }
+
+
         var bass =
             <div id="show-container" className="section">
-                <div>
-                <div className="gain-container">
-                <p>Volume</p>
-                <Knob
-                value={this.state.knobMainGain}
-                onChange={this.handleChangeMainGain.bind(this)}
-                onChangeEnd={this.handleChangeMainGain.bind(this)}
-                fgColor={'lightsalmon'}
-                width={100}
-                height={100}
-                font={'"Bubbler One"'}
-                />
-                </div>
-                {warning}
+            {warning}
+                <div id="bass-container">
+                    <p className="container-title bass-titles" onClick={this.showOrHideSettings.bind(this)}>Settings {pointerSettings}</p>
+                    <div className='fx-container bass-color' id="bass-container" style={showSettingsContainer}>
+                        <div>
+                        <p>Volume</p>
+                        <Knob
+                        value={this.state.knobMainGain}
+                        onChange={this.handleChangeMainGain.bind(this)}
+                        onChangeEnd={this.handleChangeMainGain.bind(this)}
+                        fgColor={'lightsalmon'}
+                        width={100}
+                        height={100}
+                        font={'"Bubbler One"'}
+                        />
+                    </div>
 
-                <p>Resolution</p>
-                <select onChange={this.selectResolution} value={this.state.resolution}>
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="16">16</option>
-                <option value="32">32</option>
-                </select>
+                    <div>
+                    <p>Resolution</p>
+                    <select className="select-items" onChange={this.selectResolution} value={this.state.resolution}>
+                        <option value="4">4</option>
+                        <option value="8">8</option>
+                        <option value="16">16</option>
+                        <option value="32">32</option>
+                    </select>
+                    </div>
 
-                <div>
-                <p>Glide</p>
-                <Knob value={this.state.knobGlide} onChange={this.handleChangeGlide} onChangeEnd={this.handleChangeGlide} fgColor={'lightsalmon'} width={100} height={100} font={'"Bubbler One"'}/>
-                </div>
+                    <div>
+                    <p>Bars</p>
+                    <select className="select-items" onChange={this.selectBars} value={this.state.bars}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    </select>
+                    </div>
 
-                <div>
-                <p>Attack</p>
-                <Knob value={this.state.knobAttack} onChange={this.handleChangeAttack} onChangeEnd={this.handleChangeAttack} fgColor={'lightsalmon'} width={100} height={100} font={'"Bubbler One"'}/>
-                </div>
+                    <div id="octave-bass-settings">
+                    <p>Octave</p>
+                    <button className="btn button-primary" onClick={this.increaseOctave}>+ Octave</button>
+                    <p>Octave : {this.state.transpose}</p>
+                    <button className="btn button-primary" onClick={this.decreaseOctave}>- Octave</button>
+                    </div>
 
-
-                <div>
-                <p>Decay</p>
-                <Knob value={this.state.knobDecay} onChange={this.handleChangeDecay} onChangeEnd={this.handleChangeDecay} fgColor={'lightsalmon'} width={100} height={100} font={'"Bubbler One"'}/>
-                </div>
-
-
-                <p>Bars</p>
-                <select onChange={this.selectBars} value={this.state.bars}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="4">4</option>
-                </select>
-
-
-                <p>Saw</p>
-                <select onChange={this.selectSaw} value={this.state.type}>
-                <option value="sine">sine</option>
-                <option value="square">square</option>
-                <option value="triangle">triangle</option>
-                <option value="sawtooth">sawtooth</option>
-                </select>
-
-                <div className="bit-container">
-                <p>Bitcrusher</p>
-                <button onClick={this.showOrHideBit.bind(this)}>{this.state.showOrHideBit}</button>
-                <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
-                <option value="4">4</option>
-                <option value="8">8</option>
-                <option value="16">16</option>
-                <option value="32">32</option>
-                </select>
+                    </div>
                 </div>
 
-                <div>
-                <button onClick={this.increaseOctave}>+ Octave</button>
-                <p>Octave : {this.state.transpose}</p>
-                <button onClick={this.decreaseOctave}>- Octave</button>
+                <div id="bass-sound-container">
+                    <p className="container-title bass-titles" onClick={this.showOrHideBassSound.bind(this)}>Bass Sound {pointerBassSound}</p>
+                    <div className='fx-container bass-color' id="bass-container" style={showBassSoundContainer}>
+                        <div>
+                            <p>Saw</p>
+                            <select className="select-items" onChange={this.selectSaw} value={this.state.type}>
+                                <option value="sine">sine</option>
+                                <option value="square">square</option>
+                                <option value="triangle">triangle</option>
+                                <option value="sawtooth">sawtooth</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <p>Attack</p>
+                            <Knob value={this.state.knobAttack} onChange={this.handleChangeAttack} onChangeEnd={this.handleChangeAttack} fgColor={'lightsalmon'} width={100} height={100} font={'"Bubbler One"'}/>
+                        </div>
+
+
+                        <div>
+                            <p>Decay</p>
+                            <Knob value={this.state.knobDecay} onChange={this.handleChangeDecay} onChangeEnd={this.handleChangeDecay} fgColor={'lightsalmon'} width={100} height={100} font={'"Bubbler One"'}/>
+                        </div>
+
+                        <div>
+                            <p>Glide</p>
+                            <Knob value={this.state.knobGlide} onChange={this.handleChangeGlide} onChangeEnd={this.handleChangeGlide} fgColor={'lightsalmon'} width={100} height={100} font={'"Bubbler One"'}/>
+                        </div>
+                    </div>
                 </div>
 
 
-                <button onClick={this.handleClearSequence}>Clear the Sequence</button>
 
+                <div class="fx-select fx-container drums-color" id="bass-sound-container">
+                <p className="container-title bass-titles" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
+                <div className="bit-container fx-container bass-color" id="bitcrusher bass-container" style={showBitcrusherContainer}>
+                    <div>
+                        <button className="btn button-primary bitcrusher-button" id="bitcrusher-button-bass" onClick={this.showOrHideBit.bind(this)}>{this.state.showOrHideBit}</button>
+                        <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                            <option value="16">16</option>
+                            <option value="32">32</option>
+                        </select>
+                    </div>
+                </div>
+                </div>
+
+                <div className='bass-container' id="bass-sequencer-container">
+
+                <p className="bass-titles" id="bass-filter">Sequencer {this.state.disableFx}</p>
                 <div id="bass-sequencer">
-                <table>
-                <thead>
-                <tr className='steps-row'><td>Step</td>{bassSequencerStep}</tr>
-                </thead>
-                <tbody>
-                <tr><td>Note</td>{bassSequencerAll}</tr>
-                <tr><td>Length</td>{bassLength}</tr>
-                <tr><td>Octave</td>{bassOctave}</tr>
-                </tbody>
-                </table>
+                    <table>
+                    <thead>
+                    <tr className='steps-row'><td>Step</td>{bassSequencerStep}</tr>
+                    </thead>
+                    <tbody>
+                    <tr><td>Note</td>{bassSequencerAll}</tr>
+                    <tr><td>Length</td>{bassLength}</tr>
+                    <tr><td>Octave</td>{bassOctave}</tr>
+                    </tbody>
+                    </table>
+                </div>
                 </div>
 
+                <button className="btn button-primary" id="bass-clear-button" onClick={this.handleClearSequence}>Clear the Sequence</button>
 
                 <Sequencer resolution={this.state.resolution} bars={this.state.bars}>
                 <Monosynth
@@ -474,8 +546,8 @@ export default class Bass extends Component {
                 steps={this.state.steps}
                 />
                 </Sequencer>
-                </div>
             </div>
+
 
 
         const hiddenDiv = {

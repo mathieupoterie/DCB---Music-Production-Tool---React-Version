@@ -186,6 +186,22 @@ export default class Drums extends Component {
       }
   }
 
+  showOrHideSettings(){
+      if(this.state.showSettings){
+          this.setState({showSettings : null})
+      }else {
+          this.setState({showSettings : true})
+      }
+  }
+
+  showOrHideBitcrusher(){
+      if(this.state.showBitcrusher){
+          this.setState({showBitcrusher : null})
+      }else {
+          this.setState({showBitcrusher : true})
+      }
+  }
+
   render() {
 
       console.log("state", this.state);
@@ -244,76 +260,96 @@ export default class Drums extends Component {
         )
     })
 
+    var pointerSettings = "+";
+    var showSettingsContainer= {position: "absolute", top : "-10000000px"}
+
+    if (this.state.showSettings) {
+        showSettingsContainer = {background : 'none'};
+        pointerSettings = '-'
+    }
+
+    var pointerBitcrusher = "+";
+    var showBitcrusherContainer= {position: "absolute", top : "-10000000px"}
+
+    if (this.state.showBitcrusher) {
+        showBitcrusherContainer = {background : 'none'};
+        pointerBitcrusher = '-'
+    }
+
+
       var drums =
 
       <div id="show-container" className="section">
 
-      <div className="gain-container">
-      <p className="container-title" id="drums-settings">Settings</p>
-      <div className='fx-container drums-color' id="drums-container">
-      <div>
-         <p className="container-title">Volume</p>
-          <Knob
-          value={this.state.knobMainGain}
-          onChange={this.handleChangeMainGain.bind(this)}
-          onChangeEnd={this.handleChangeMainGain.bind(this)}
-          fgColor={'cornflowerblue'}
-          width={100}
-          height={100}
-          font={'"Bubbler One"'}
-          />
+        <div className="gain-container">
+            <p className="container-title" id="drums-settings" onClick={this.showOrHideSettings.bind(this)}>Settings {pointerSettings}</p>
+            <div className='fx-container drums-color' id="drums-container" style={showSettingsContainer}>
+              <div>
+                 <p className="container-title">Volume</p>
+                  <Knob
+                  value={this.state.knobMainGain}
+                  onChange={this.handleChangeMainGain.bind(this)}
+                  onChangeEnd={this.handleChangeMainGain.bind(this)}
+                  fgColor={'cornflowerblue'}
+                  width={100}
+                  height={100}
+                  font={'"Bubbler One"'}
+                  />
+                  </div>
+
+              <div>
+                  <p>Resolution</p>
+                  <div className="fx-select">
+                      <select onChange={this.selectResolution} value={this.state.resolution}>
+                          <option value="4">4</option>
+                          <option value="8">8</option>
+                          <option value="16">16</option>
+                          <option value="32">32</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div>
+                  <p>Bars</p>
+                  <div className="fx-select">
+                      <select onChange={this.selectBars} value={this.state.bars}>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="4">4</option>
+                      </select>
+                  </div>
+              </div>
           </div>
-
-      <div>
-      <p>Resolution</p>
-      <div className="fx-select">
-      <select onChange={this.selectResolution} value={this.state.resolution}>
-      <option value="4">4</option>
-      <option value="8">8</option>
-      <option value="16">16</option>
-      <option value="32">32</option>
-      </select>
-      </div>
-      </div>
-
-      <div>
-      <p>Bars</p>
-      <div className="fx-select">
-      <select onChange={this.selectBars} value={this.state.bars}>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="4">4</option>
-      </select>
-      </div>
-      </div>
-      </div>
       </div>
 
       <div className="bit-container">
-      <p className="container-title" id="drums-bitcrusher">Bitcrusher</p>
-      <div className="fx-select fx-container drums-color" id="bitcrusher">
-      <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary" id="bitcrusher-button">{this.state.showOrHideBit}</button>
-      <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
-      <option value="4">4</option>
-      <option value="8">8</option>
-      <option value="16">16</option>
-      <option value="32">32</option>
-      </select>
+      <p className="container-title" id="drums-bitcrusher" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
+      <div className="fx-container drums-color" id="bitcrusher" style={showBitcrusherContainer}>
+          <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary bitcrusher-button" id="bitcrusher-button-drums">{this.state.showOrHideBit}</button>
+          <select className="fx-select" onChange={this.selectBit.bind(this)} value={this.state.bit}>
+              <option value="4">4</option>
+              <option value="8">8</option>
+              <option value="16">16</option>
+              <option value="32">32</option>
+          </select>
       </div>
       </div>
 
-      <div id="drum-sequencer">
-      <table>
-      <thead>
-      <tr className='steps-row'><td>Step</td>{drumsSequencerStep}</tr>
-      </thead>
-      <tbody>
-      <tr><td>Cowbell</td>{cowbellSequencerStep}</tr>
-      <tr><td>Hi Hat</td>{hihatSequencerStep}</tr>
-      <tr><td>Snare</td>{snareSequencerStep}</tr>
-      <tr><td>Kick</td>{kickSequencerStep}</tr>
-      </tbody>
-      </table>
+      <div id="drums-sequencer-container">
+          <p className="container-title" id="drums-sequencer">Sequencer</p>
+          <div id="drum-sequencer">
+              <table>
+                  <thead>
+                    <tr className='steps-row'><td>Step</td>{drumsSequencerStep}</tr>
+                  </thead>
+                  <tbody>
+                      <tr><td>Cowbell</td>{cowbellSequencerStep}</tr>
+                      <tr><td>Hi Hat</td>{hihatSequencerStep}</tr>
+                      <tr><td>Snare</td>{snareSequencerStep}</tr>
+                      <tr><td>Kick</td>{kickSequencerStep}</tr>
+                  </tbody>
+              </table>
+          </div>
       </div>
 
       <button onClick={this.handleClearSequence.bind(this)} className="btn button-primary" id="drums-clear-button">Clear the Sequence</button>

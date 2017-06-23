@@ -317,9 +317,9 @@ export default class Instruments extends Component {
     render() {
 
         let activeStyleVisualizer =  {color : 'black'};
-        let showHamonyContainer = {position: "absolute", top : "-1000px"};
+        let showHamonyContainer = {position: "absolute", top : "-10000000px"};
 
-        var visualizerStyle = {position : 'absolute', top : '-1000px'};
+        var visualizerStyle = {position : 'absolute', top : '-10000000px'};
         if (this.state.showVisualizer) {
             visualizerStyle = {position : 'relative', top : '0px'};
             activeStyleVisualizer =  {color : 'gold'}
@@ -333,28 +333,30 @@ export default class Instruments extends Component {
         }
 
         var pointerReverb = "+";
-        var showReverbContainer = {position: "absolute", top : "-1000px"};
+        var showReverbContainer = {position: "absolute", top : "-10000000px"};
         if (this.state.showReverb) {
             showReverbContainer = {background : 'none'};
             pointerReverb = '-'
         }
 
         var pointerFilter = "+";
-        var showFilterContainer = {position: "absolute", top : "-1000px"}
+        var showFilterContainer = {position: "absolute", top : "-10000000px"}
         if (this.state.showFilter) {
             showFilterContainer = {background : 'none'};
             pointerFilter = '-'
         }
 
         var pointerDelay = "+";
-        var showDelayContainer= {position: "absolute", top : "-1000px"}
+        var showDelayContainer= {position: "absolute", top : "-10000000px"}
 
         if (this.state.showDelay) {
             showDelayContainer = {background : 'none'};
             pointerDelay = '-'
         }
         var genericContainer = "";
-        let activeStyle = {color : 'black'}
+        let activeStyle = {color : 'black'};
+
+
         if(this.state.showContainer){
             activeStyle = {color : 'gold'}
             genericContainer =
@@ -362,7 +364,7 @@ export default class Instruments extends Component {
                 <div className="harmony-container">
                     <h4 className="container-title" onClick={this.showOrHideHarmony.bind(this)} >Harmony and Tempo    {pointerHarmony}</h4>
                     <div className='fx-container generic-color' style={showHamonyContainer}>
-                        <div className="gain-container">
+                        <div>
                             <div>
                                 <p>Volume</p>
                                 <Knob
@@ -501,8 +503,8 @@ export default class Instruments extends Component {
                     </div>
                 </div>
 
-                <div className="delay-container" onClick={this.showOrHideDelay.bind(this)}>
-                    <h4 className="container-title">Delay {pointerDelay}</h4>
+                <div className="delay-container" >
+                    <h4 className="container-title" onClick={this.showOrHideDelay.bind(this)}>Delay {pointerDelay}</h4>
                     <div className="fx-container generic-color" style={showDelayContainer}>
                         <div>
                             <p>Cutoff</p>
