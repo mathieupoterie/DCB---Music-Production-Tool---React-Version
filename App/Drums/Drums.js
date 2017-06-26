@@ -204,9 +204,6 @@ export default class Drums extends Component {
 
   render() {
 
-      console.log("state", this.state);
-
-
       var that = this;
       var columnNumber  = this.state.resolution * this.state.bars;
       var drumsSequencerStep = "";
@@ -326,7 +323,7 @@ export default class Drums extends Component {
       <p className="container-title" id="drums-bitcrusher" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
       <div className="fx-container drums-color" id="bitcrusher" style={showBitcrusherContainer}>
           <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary bitcrusher-button" id="bitcrusher-button-drums">{this.state.showOrHideBit}</button>
-          <select className="fx-select" onChange={this.selectBit.bind(this)} value={this.state.bit}>
+          <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
               <option value="4">4</option>
               <option value="8">8</option>
               <option value="16">16</option>
@@ -335,7 +332,7 @@ export default class Drums extends Component {
       </div>
       </div>
 
-      <div id="drums-sequencer-container">
+      <div className="sequencer-container">
           <p className="container-title" id="drums-sequencer">Sequencer</p>
           <div id="drum-sequencer">
               <table>

@@ -44,9 +44,7 @@ export default class Chords extends Component {
 
     componentWillReceiveProps(nextProps){
         if (nextProps.rootnote != this.props.rootnote || nextProps.scale != this.props.scale) {
-            console.log(this.state.storedSteps, "this.state.storedSteps");
             this.props = nextProps;
-            console.log(this.props);
             var storedStepsClone = this.state.storedSteps.slice();
             this.translateStepsIntoNotes(storedStepsClone)
         }
@@ -148,7 +146,6 @@ export default class Chords extends Component {
         if (previousSteps[0]) {
             var clone = previousSteps.slice();
             if (degree == "None") {
-                console.log("here we are!!!");
 
                 function removeA(arr) {
                     var what, a = arguments, L = a.length, ax;
@@ -178,12 +175,9 @@ export default class Chords extends Component {
                 if(!updated){
                     var newStepsToStore = previousSteps.slice();
                     newStepsToStore.push(storedNewStep);
-                    console.log("newStepsToStore", newStepsToStore);
                     var newStepsToTranslate = newStepsToStore.slice();
                     this.setState({ storedSteps : newStepsToStore});
-                    console.log("1", JSON.stringify(newStepsToStore));
                     this.translateStepsIntoNotes(newStepsToTranslate, octave)
-                    console.log("2", JSON.stringify(newStepsToStore));
                 }
 
             }
@@ -222,10 +216,10 @@ export default class Chords extends Component {
                 step[2] = [(that.props.notes.fifth + step[3]), (that.props.notes.second+ (step[3] +1)), (that.props.notes.sensible+ (step[3] +1))];
                 newSteps[i] = step ;
             }else if(degree == "VI"){
-                step[2] = [(that.props.notes.sixth + step[3]), (that.props.notes.third+ (step[3] +1)), (that.props.notes.root+ (step[3] +2))];
+                step[2] = [(that.props.notes.sixth + step[3]), (that.props.notes.third+ (step[3] +1)), (that.props.notes.root+ (step[3] +1))];
                 newSteps[i] = step ;
             }else if(degree == "VII"){
-                step[2] = [(that.props.notes.seventh + step[3]), (that.props.notes.fourth+ (step[3] +1)), (that.props.notes.second+ (step[3] +2))];
+                step[2] = [(that.props.notes.seventh + step[3]), (that.props.notes.fourth+ (step[3] +1)), (that.props.notes.second+ (step[3] +1))];
                 newSteps[i] = step ;
             }
             step.pop();
@@ -266,7 +260,6 @@ export default class Chords extends Component {
 
 
     render() {
-        console.log("STATE", this.state);
         var that = this;
         let warning = "";
         if(this.state.warning){
@@ -350,7 +343,7 @@ export default class Chords extends Component {
                 {warning}
 
                 <div>
-                    <p className="container-title chords-titles"  onClick={this.showOrHideSettings.bind(this)}>Settings  {pointerSettings}</p>
+                    <h4 className="container-title chords-titles"  onClick={this.showOrHideSettings.bind(this)}>Settings  {pointerSettings}</h4>
                     <div className='fx-container chords-color' id="chords-container" style={showSettingsContainer}>
                         <div>
                             <p>Volume</p>
@@ -401,9 +394,9 @@ export default class Chords extends Component {
 
                 </Sequencer>
 
-                <div className='chorus-container' id="chords-sequencer-container">
+                <div className='chorus-container sequencer-container'>
 
-                <p className="chords-titles" id="chords-filter">Sequencer</p>
+                <h4 className="chords-titles">Sequencer</h4>
                 <div id="chords-sequencer">
                 <table>
                 <thead>

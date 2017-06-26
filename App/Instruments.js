@@ -46,12 +46,12 @@ export default class Instruments extends Component {
             knobFilterFrequency: 0,
             filterType: 'highpass',
             delayDry : 1,
-            delayWet : 0.25,
+            delayWet : 0,
             delayTime : 150,
             delayFeedback : 0.25,
             delayCutoff : 9000,
             knobDelayDry :100,
-            knobDelayWet : 25,
+            knobDelayWet : 0,
             valueDelayTime :"1/16",
             knobDelayFeedback : 25,
             knobDelayCutoff :75,
@@ -232,7 +232,6 @@ export default class Instruments extends Component {
     }
 
     selectFilterType(e){
-        console.log(e.target);
         this.setState({filterType : e.target.value})
     }
 

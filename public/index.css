@@ -84,8 +84,7 @@ table {
 }
 
 .button-primary:hover{
-
-background-color: gold;
+    background-color: gold;
 }
 
 
@@ -129,10 +128,15 @@ background-color: gold;
 .reverb-container h4, .delay-container h4, .filter-container h4, .harmony-container h4, .chorus-container h4{
     display: inline-block;
     padding: 0 20px 0 20px;
-    background: gold;
     font-size: 20px;
     border-radius: 3px;
+}
+.reverb-container h4, .delay-container h4, .filter-container h4, .harmony-container h4 {
+    background: gold;
+}
 
+.chorus-container h4{
+    background: mediumaquamarine;
 }
 
 .filter-chords-container h4{
@@ -256,11 +260,6 @@ margin-top: 47px;
     background: lightsalmon;
 }
 
-#chords-sequencer-container{
-    position: relative;
-    top: 40px;
-}
-
 
 #drums-clear-button:hover, #chords-clear-button:hover, #bass-clear-button:hover{
     color : black;
@@ -281,7 +280,7 @@ margin-top: 47px;
     top: 18px;
 }
 
-#drums-sequencer-container{
+.sequencer-container{
     position: relative;
     top: 18px;
 }
@@ -347,19 +346,8 @@ margin-top: 47px;
 }
 
 #drums-bitcrusher{
-    margin-bottom: 0;
     top: 10px;
     position: relative;
-}
-
-#chords-bitcrusher, #chords-filter{
-    margin-bottom: 0;
-    top: 10px;
-    position: relative;
-    display: inline-block;
-    padding: 0 20px 0 20px;
-    font-size: 20px;
-    border-radius: 3px;
 }
 
 .reverb-container, .filter-container, .filter-chords-container, .delay-container, .harmony-container, .chorus-container{
@@ -570,10 +558,10 @@ margin-top: 47px;
 
 #playing-button2{
     width : 90px;
-position: relative;
-left: 50%;
-transform: translate(-50%);
-top: 50px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    top: 50px;
     margin-bottom: 26px;
 }
 
@@ -668,7 +656,9 @@ text-decoration: underline;
   height: 34px;
 }
 
-.switch input {display:none;}
+.switch input {
+    display:none;
+}
 
 .slider {
   position: absolute;
@@ -740,12 +730,6 @@ input:checked + .slider:before {
   }
   .react-music-canvas{
       width: 88%;
-  }
-  #responsive-fix{
-      top: 29px
-  }
-  #drums-bitcrusher{
-        margin-bottom: 30px;
   }
   .title-image-container{
       margin-left: 15px;

@@ -1,17 +1,17 @@
-<h1 align="center">react-music</h1>
+<h1 align="center">DCB - Music Production Tool</h1>
 
 <h4 align="center">
-  Make music with React!
+  Final project at SPICED ACADEMY
 </h4>
 
 ***
 
-![http://i.imgur.com/2t1NPJy.png](http://i.imgur.com/2t1NPJy.png)
+![http://i.imgur.com/07AhT63.png](http://i.imgur.com/07AhT63.png)
 
 <!-- MarkdownTOC depth=3 autolink=true bracket=round -->
 
-- [Install](#install)
-- [Get Started](#get-started)
+
+- [Synopsis](#Synopsis)
 - [Basic Concepts](#basic-concepts)
 - [Instruments](#instruments)
 - [Effects](#effects)
@@ -28,17 +28,19 @@
 <!-- /MarkdownTOC -->
 
 
-## Install
+## Synopsis
+I created this website during the last week of my SPICED Academy bootcamp, Berlin, in June 2017 ending.
+I wanted to create a music instrument online, a bit different from what already exist. I used the idea of the sequencer to synchronise 3 instruments together :
+    - Drums : this drums sequencer is pretty classical, and easy to use. Just click on the sound and step you want on the table, and you will have some sound ! Just play with it and after few seconds, you will get the concept !
+    - Chords : the more challenging part of the project ! I had to use my music theorical knowledge to make it work. Based on the scale and root note you selected (ex : A minor), you can use this sequencer to play chords that will fit to those settings. You can choose between seven differents chords, each one can add a different feeling and emotion to your composition.
+    - Bass : this bass sequencer is quite simple, but you can obtain very rich sounds using the saw, glide parameters.
 
-`npm install react-music`
+The first section, 'Generic Settings', contains the most important settings of your songs (tempo, root, scale), and also effects that you will apply to the three instruments (delay, reverb, filter, bitcrusher).
+Each of those instruments have different effects you can experiment. The Visualiser is a bonus feature to help you see your sound specter, from the lowest frequencies, on the left to the highest on the right.
 
-## Get Started
+I worked in this project using "react music" (https://github.com/FormidableLabs/react-music). Here is, from their documentation, the react component I used to create this DCB Instrument.
 
-The easiest way to get started is to clone this repo and run `npm start`. The App song will be running at [http://localhost:3000](http://localhost:3000). You can open up the `/App/index.js` file and edit your song there, using the API below as reference.
-
-That said, you can import the primitives yourself and run your own build setup if you want.
-
-## Basic Concepts
+## Basic Concepts I used from the React Music
 
 #### Song
 
@@ -142,64 +144,6 @@ There are a ton of new effects added in 1.0.0. You can compose effect chains by 
 </Song>
 ```
 
-### Effect Busses
-
-If you want to define an effects bus, which is a set of effects that multiple instruments can send their output to, this is achieved with the `Bus` component.
-
-First you want to create a `Bus` component, and give it an identifier:
-
-```js
-<Song tempo={90}>
-  <Bus id="myBus"/>
-</Song>
-```
-
-Next, wrap your bus with the effect chain you want to make available, similarly to the way you would wrap effects around an instrument. You generally want to do this with effects that have wet/dry control, and set the `dryLevel` to 0:
-
-```js
-<Song tempo={90}>
-  <Delay dryLevel={0}>
-    <Bus id="myBus"/>
-  </Delay>
-</Song>
-```
-
-Finally, to hook an instrument up to your bus, or several busses, add their id's to the `busses` prop on an instrument:
-
-```js
-<Song tempo={90}>
-  <Delay dryLevel={0}>
-    <Bus id="myBus"/>
-  </Delay>
-  <Sampler
-  	busses={['myBus']}
-  	sample='/samples/kick.wav'
-  	steps={[1,4,8,12]}
-  />
-</Song>
-```
-
-## LFO
-
-You know whats bananas? LFO. Thats what. You can use an oscillator to modify properties of your instruments and effects. This is done with the `LFO` component. Any node that you want to apply LFO to just needs it added as a child. Then you define a `connect` prop that returns a function that lets you select a parent AudioNode property to oscillate. See the following example.
-
-```js
-<Song tempo={90}>
-  <Synth
-    type="square"
-    steps={[
-      [0, 2, "c3"],
-      [8, 2, ["c3", "d#3", "f4"]]
-    ]}
-  >
-    <LFO
-      type="sine"
-      frequency={0.05}
-      connect={(c) => c.gain}
-    />
-  </Synth>
-</Song>
-```
 
 ## API
 
@@ -336,20 +280,7 @@ steps={[
 
 --
 
-#### \<Compressor />
 
-**attack** (_number_)
-
-**knee** (_number_)
-
-**ratio** (_number_)
-
-**release** (_number_)
-
-**threshold** (_number_)
-
-
---
 
 #### \<Delay />
 
@@ -388,43 +319,6 @@ steps={[
 
 --
 
-#### \<MoogFilter />
-
-**bufferSize** (_number_)
-
-**cutoff** (_number_)
-
-**resonance** (_number_)
-
-
---
-
-#### \<Overdrive />
-
-**algorithmIndex** (_number_)
-
-**bypass** (_number_)
-
-**curveAmount** (_number_)
-
-**drive** (_number_)
-
-**outputGain** (_number_)
-
---
-
-#### \<PingPong />
-
-**delayTimeLeft** (_number_)
-
-**delayTimeRight** (_number_)
-
-**feedback** (_number_)
-
-**wetLevel** (_number_)
-
-
---
 
 #### \<Reverb />
 
@@ -456,33 +350,6 @@ steps={[
 **smoothingTimeConstant** (_number_) : Smoothing time constant
 
 --
-
-#### \<Bus />
-
-**gain** (_number_) : A number specifying Bus gain
-
-**id** (_string_) : Bus ID
-
---
-
-#### \<LFO />
-
-**connect** (_function_) : LFO property selection function
-
-**frequency** (_number_) : LFO frequency
-
-**gain** (_number_) : A number specifying LFO gain
-
-**type** (_string_) : Oscillator type. Accepts `square`, `triangle`, `sawtooth` & `sine`
-
-
-## Known Issues & Roadmap
-
-- Currently only the 4/4 time signature is supported
-- `Synth` presets need to be added
-- Record/Ouput audio file
-- Optional working mixing board alongside viz
-- Sampler sample maps
 
 
 ## License

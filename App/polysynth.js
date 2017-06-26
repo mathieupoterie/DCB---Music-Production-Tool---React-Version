@@ -30,7 +30,7 @@ export default class Polysynth extends Component {
         filterType: 'highpass',
         filterQ : 0,
         knobFilterQ : 0,
-        saw1 : "square",
+        saw1 : "sine",
         saw2 : "sine",
         chorusRate : 1.5,
         knobChorusRate : 15,
@@ -51,7 +51,6 @@ export default class Polysynth extends Component {
   }
 
   selectFilterType(e){
-      console.log(e.target);
       if (e.target.value == "lowpass") {
           this.setState({filterType : e.target.value, knobFilterFrequency : 100 - this.state.knobFilterFrequency, filterFrequency : 7500 - this.state.filterFrequency})
       }else {
@@ -231,7 +230,7 @@ export default class Polysynth extends Component {
     return (
         <div>
             <div id="polysynth-fx-container" id="chords-container">
-            <p className="container-title chords-titles" onClick={this.showOrHideSaw.bind(this)}>Saw  {pointerSaw}</p>
+            <h4 className="container-title chords-titles" onClick={this.showOrHideSaw.bind(this)}>Saw  {pointerSaw}</h4>
                 <div id="saw-container" className='fx-container chords-color' style={showSawContainer}>
                     <div>
                         <p>Saw 1</p>
@@ -280,10 +279,10 @@ export default class Polysynth extends Component {
                 </div>
 
                 <div className="bit-container">
-                    <p className="container-title chords-titles" id="chords-bitcrusher" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
+                    <h4 className="container-title chords-titles" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</h4>
                     <div className="fx-select fx-container chords-color" id="bitcrusher" style={showBitcrusherContainer}>
                         <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary bitcrusher-button" id="bitcrusher-button-chords">{this.state.showOrHideBit}</button>
-                        <select id="chords-bitcrusher select-items" onChange={this.selectBit.bind(this)} value={this.state.bit}>
+                        <select id="select-items" onChange={this.selectBit.bind(this)} value={this.state.bit}>
                             <option value="4">4</option>
                             <option value="8">8</option>
                             <option value="16">16</option>
@@ -293,8 +292,8 @@ export default class Polysynth extends Component {
                 </div>
 
                     <div className="filter-chords-container">
-                    <h4 className="container-title chords-titles" id="chords-filter" onClick={this.showOrHideFilter.bind(this)}>Filter {pointerFilter}</h4>
-                    <div className="fx-container chords-color"  id="responsive-fix" style={showFilterContainer}>
+                    <h4 className="container-title chords-titles" onClick={this.showOrHideFilter.bind(this)}>Filter {pointerFilter}</h4>
+                    <div className="fx-container chords-color" style={showFilterContainer}>
                         <div>
                             <p>Frequency</p>
                             <Knob
@@ -329,8 +328,8 @@ export default class Polysynth extends Component {
                     </div>
                 </div>
 
-                    <div className="chorus-container" id="chorus-wrapper">
-                        <p className="container-title chords-titles" id="chords-filter" onClick={this.showOrHideChorus.bind(this)}>Chorus {this.state.disableFx} {pointerChorus}</p>
+                    <div className="chorus-container">
+                        <h4 className="container-title chords-titles" id="chords-filter" onClick={this.showOrHideChorus.bind(this)}>Chorus {this.state.disableFx} {pointerChorus}</h4>
                         <div className="fx-select fx-container chords-color" style={showChorusContainer}>
                             <div>
                                 <p>Rate</p>

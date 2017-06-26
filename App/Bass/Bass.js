@@ -215,13 +215,12 @@ export default class Bass extends Component {
                 return this.setState({ storedSteps : previousSteps});
             }else{
                 var newStep = storedNewStep
-                var that = this;
                 var updated = false
                 previousSteps.forEach((step, i) =>{
                     if (step[0] === numberedCol) {
                         previousSteps[i]=newStep;
                         updated = true;
-                        that.setState({ storedSteps : previousSteps});
+                        this.setState({ storedSteps : previousSteps});
                         return this.translateStepsIntoNotes(previousSteps, octave)
                     }
                 })
@@ -242,16 +241,10 @@ export default class Bass extends Component {
     }
 
     translateStepsIntoNotes(stepsToTranslate, octave){
-        console.log("hey?");
 
         var newSteps = stepsToTranslate.slice();
-        console.log("this.state.octave[i]", this.state.octave);
-
-        var that = this;
         if (newSteps[0]) {
             newSteps = newSteps.map((step, i) => {
-                console.log("i", i);
-                console.log("this.state.octave[i]",this.state.octave[i+1]);
                 step = step.slice();
                 step[2] = this.props.notes[step[2]] + step[3];
                 step.pop();
@@ -259,8 +252,6 @@ export default class Bass extends Component {
             })
         }
 
-
-        console.log(newSteps);
         this.setState({ steps:  newSteps})
     }
 
@@ -317,9 +308,6 @@ export default class Bass extends Component {
 
 
     render() {
-        console.log(this.state.attack, "attack");
-
-        var that = this;
         let warning = "";
         if(this.state.warning){
 
@@ -337,15 +325,15 @@ export default class Bass extends Component {
             octaveChoices.push({id:i});
         }
 
-        bassLengthChoices = inputChoices.map(function(col){
+        bassLengthChoices = inputChoices.map((col) => {
             return (
                 <option value={col.id}>{col.id}</option>
             )
         })
-        bassOctave = octaveChoices.map(function(col){
+        bassOctave = octaveChoices.map((col) =>{
             return(
                 <td>
-                    <select id={col.id} onChange={that.selectOctave} value={that.state.octave[col.id]}>
+                    <select id={col.id} onChange={this.selectOctave} value={this.state.octave[col.id]}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -355,17 +343,17 @@ export default class Bass extends Component {
             )
         })
 
-        bassLength = bassIdLength.map(function(col){
+        bassLength = bassIdLength.map((col) =>{
             return (
                 <td>
-                    <select id={col.id} onChange={that.selectLength} value={that.state.length[col.id]}>
+                    <select id={col.id} onChange={this.selectLength} value={this.state.length[col.id]}>
                         {bassLengthChoices}
                     </select>
                 </td>
             )
         })
 
-        bassSequencerStep = bassColumns.map(function(col){
+        bassSequencerStep = bassColumns.map((col) => {
             return (
                 <td>{col.id}</td>
             )
@@ -375,16 +363,16 @@ export default class Bass extends Component {
         bassSequencerAll = selectNote.map((col) => {
             return (
                 <td>
-                    <select id={col.id} onChange={that.handleSeqChange} value={that.state.stepSelected[col.id]}>
+                    <select id={col.id} onChange={this.handleSeqChange} value={this.state.stepSelected[col.id]}>
                         <option value="None">None</option>
-                        <option value="sensible">{that.props.notes.sensible}</option>
-                        <option value="seventh">{that.props.notes.seventh}</option>
-                        <option value="sixth">{that.props.notes.sixth}</option>
-                        <option value="fifth">{that.props.notes.fifth}</option>
-                        <option value="fourth">{that.props.notes.fourth}</option>
-                        <option value="third">{that.props.notes.third}</option>
-                        <option value="second">{that.props.notes.second}</option>
-                        <option value="root">{that.props.notes.root}</option>
+                        <option value="sensible">{this.props.notes.sensible}</option>
+                        <option value="seventh">{this.props.notes.seventh}</option>
+                        <option value="sixth">{this.props.notes.sixth}</option>
+                        <option value="fifth">{this.props.notes.fifth}</option>
+                        <option value="fourth">{this.props.notes.fourth}</option>
+                        <option value="third">{this.props.notes.third}</option>
+                        <option value="second">{this.props.notes.second}</option>
+                        <option value="root">{this.props.notes.root}</option>
                     </select>
                 </td>
             )
@@ -511,7 +499,7 @@ export default class Bass extends Component {
                 </div>
                 </div>
 
-                <div className='bass-container' id="bass-sequencer-container">
+                <div className='bass-container sequencer-container'>
 
                 <p className="bass-titles" id="bass-filter">Sequencer {this.state.disableFx}</p>
                 <div id="bass-sequencer">
