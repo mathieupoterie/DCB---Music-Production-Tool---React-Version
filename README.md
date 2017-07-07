@@ -326,7 +326,7 @@ The value `4` is the most destructive you can choose on my website.
 
 **rate** (_number_)
 
-##### Personal note
+#### Personal note
 I used the Chorus to add more complexity to the <em>Chords</em> instrument. I wanted this website to be quite easy to use, that's why i decided to set static values for the `delay`, `feedback` and just let the user have fun with the value of the `rate`.
 
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27957203-a7e9119e-631d-11e7-9e6e-c35b7de9107c.gif"  width="800"/></p>
