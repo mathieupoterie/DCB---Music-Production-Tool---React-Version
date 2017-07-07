@@ -77,7 +77,7 @@ Your `Sequencer`'s are what you use to define a looping section. They take two p
 I decided to use a very common way to play with the sequencer in electronic music : a step sequencer, with a grid.
 This is how it looks for the drums : <p align="center"><img src="https://media.giphy.com/media/3og0IQ35BXvFtubYyI/giphy.gif"  width="800"/></p>
 
-For the chords : <p align="center"><img src="https://media.giphy.com/media/3og0ICiMDQArt07TpK/giphy.gif"  width="800"/></p>
+For the chords : <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27954812-066031e6-6312-11e7-9118-a65848070428.gif"  width="800"/></p>
 
 For the bass :<p align="center"><img src="https://media.giphy.com/media/xUA7bhJ1RB7bZ9IyM8/giphy.gif"  width="800"/></p>
 
