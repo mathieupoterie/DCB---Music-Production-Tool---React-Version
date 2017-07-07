@@ -53,14 +53,17 @@ The first thing you want to do is create a `Song` component. This is the control
 </Song>
 ```
 
-<h5 align="center">Personal note</5>
+<h4 align="center">Personal note</h4>
+<br>
 
-You can access and set your tempo in the Generic Settings / Harmony and Tempo sections.
-I decided to focus a big part of my week of work on the harmonic set up feature : the user can set the root not and the kind of scale he want to use. You can set this up before your song, but also during your song, which will be automatically transposed. I'm really happy about this feature, that is a bit complicated to set up, especially for the chords sections, where I had to store all the informations about music theory (all the major and minor scale, but also the degrees, and many other complex musical things).
+You can access and set your tempo in the "Generic Settings" / "Harmony and Tempo" sections.
+I decided to dedicate a big part of my week to work on the harmonic set up feature : the user can set the root not and the kind of scale he want to use. You can set this up before your song, but also during your song, which will be automatically transposed.
+<br>I'm really happy about this feature, that is a bit complicated to set up, especially for the chords sections, where I had to store all the informations about music theory (all the major and minor scale, but also the degrees, and many other complex musical things).
 
 This is how this part looks :
+<br>
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956221-1515afc0-6319-11e7-944c-bebcb967a7e5.gif"  width="800"/></p>
-
+<br>
 #### Sequencer
 
 
