@@ -27,21 +27,21 @@
 
 
 ## Synopsis
-I created this website during the last week of my SPICED Academy bootcamp, Berlin, in June 2017 ending.
+I created this website during the last week of my SPICED Academy bootcamp, in June 2017 ending in Berlin.
+
+<br>
 I wanted to create a music instrument online, a bit different from what already exist. I used the idea of the sequencer to synchronise 3 instruments together :
     <ul><li>Drums : this drums sequencer is pretty classical, and easy to use. Just click on the sound and step you want on the table, and you will have some sound ! Just play with it and after few seconds, you will get the concept !</li>
     <li>Chords : the more challenging part of the project ! I had to use my music theorical knowledge to make it work. Based on the scale and root note you selected (ex : A minor), you can use this sequencer to play chords that will fit to those settings. You can choose between seven differents chords, each one can add a different feeling and emotion to your composition.</li>
-    <li>Bass : this bass sequencer is quite simple, but you can obtain very rich sounds using the saw, glide parameters.</li>
+    <li>Bass : this bass sequencer is quite simple, but you can obtain very rich sounds using the saw, attack, decay and glide parameters.</li>
     </ul>
 
 The first section, 'Generic Settings', contains the most important settings of your songs (tempo, root, scale), and also effects that you will apply to the three instruments (delay, reverb, filter, bitcrusher).
-Each of those instruments have different effects you can experiment. The Visualiser is a bonus feature to help you see your sound specter, from the lowest frequencies, on the left to the highest on the right.
+Each of those instruments has different effects you can experiment. The Visualiser is a bonus feature to help you see your sound spectrum, from the lowest frequencies, on the left, to the highest, on the right.
 
-I worked in this project using "react music" (https://github.com/FormidableLabs/react-music). Here is, from their documentation, the react component I used to create this DCB Instrument.
+I worked on this project using "react music" (https://github.com/FormidableLabs/react-music). Here are, from their documentation, the basic concepts I used to create this DCB Instrument.
 
 ## Basic Concepts
-
-Here are the basic concepts I used from "React-Music" by FormidableLabs
 
 #### Song
 
@@ -53,7 +53,7 @@ The first thing you want to do is create a `Song` component. This is the control
 </Song>
 ```
 
-##### Personal note
+<h5 align="center">Personal note</5>
 
 You can access and set your tempo in the Generic Settings / Harmony and Tempo sections.
 I decided to focus a big part of my week of work on the harmonic set up feature : the user can set the root not and the kind of scale he want to use. You can set this up before your song, but also during your song, which will be automatically transposed. I'm really happy about this feature, that is a bit complicated to set up, especially for the chords sections, where I had to store all the informations about music theory (all the major and minor scale, but also the degrees, and many other complex musical things).
