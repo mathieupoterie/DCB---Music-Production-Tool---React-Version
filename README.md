@@ -33,7 +33,7 @@ I created this website during the last week of my SPICED Academy bootcamp, in Ju
 I wanted to create a music instrument online, a bit different from what already exist. I used the idea of the sequencer to synchronise 3 instruments together :
     <ul><li><b>Drums</b> : this drums sequencer is pretty classical, and easy to use. Just click on the sound and step you want on the table, and you will have some sound ! Just play with it and after few seconds, you will get the concept !</li>
     <li><b>Chords</b> : the more challenging part of the project ! I had to use my music theory knowledge to make it work. Based on the scale and root note you selected (ex : A minor), you can use this sequencer to play chords that will fit to those settings. You can choose between seven different chords, each one can add a different feeling and emotion to your composition.</li>
-    <li><b>Bass</b> : this bass sequencer is quite simple, but you can obtain very rich sounds using the saw `type`, `attack`, `decay` and `glide` parameters.</li>
+    <li><b>Bass</b> : this bass sequencer is quite simple, but you can obtain very rich sounds using the saw type, attack, decay and glide parameters.</li>
     </ul>
 
 The first section, <em>Generic Settings</em>, contains the most important settings of your songs (<em>tempo, root, scale</em>), and also effects that you will apply to the three instruments (<em>delay, reverb, filter, bitcrusher</em>).
