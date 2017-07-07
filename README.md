@@ -53,7 +53,7 @@ The first thing you want to do is create a `Song` component. This is the control
 </Song>
 ```
 
-<h4 align="center">Personal note</h4>
+#### Personal note
 
 You can access and set your tempo in the "Generic Settings" / "Harmony and Tempo" sections.
 I decided to dedicate a big part of my week to work on the harmonic set up feature : the user can set the root not and the kind of scale he want to use. You can set this up before your song, but also during your song, which will be automatically transposed.
@@ -78,7 +78,7 @@ Your `Sequencer`'s are what you use to define a looping section. They take two p
 </Song>
 ```
 
-##### Personal note
+#### Personal note
 
 I decided to use a very common way to play with the sequencer in electronic music : a step sequencer, with a grid.
 This is how it looks for the drums : <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27954851-2ce97a02-6312-11e7-9c11-68305ec4d836.gif"  width="800"/></p>
@@ -112,7 +112,7 @@ The sampler component is used to play audio samples. To use it, you must at very
 
 You can also provide an array for a step, where the second value is a tuning, from -12 to 12.
 
-##### Personal note
+#### Personal note
 I used this Sampler for making the "Drums" instrument.
 Like each instrument, the user can set the "resolution" and the number of "bars" of the "Drums".
 
@@ -135,8 +135,8 @@ The `Synth` component is used to create an oscillator and play it on steps, just
 ```
 
 
-##### Personal note
-Like each instrument, the user can set the "resolution" and the number of "bars" of the "Drums" in the "settings" section of the instrument.
+#### Personal note
+Like each instrument, the user can set the `resolution` and the number of `bars` of the drums in the <b>Settings</b> section of the instrument.
 I used two Synth for creating a poly synthesizer with 2 oscillators. You can set the type of saw of each oscillator and their volume.
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956746-6ed5ef78-631b-11e7-9de3-f45be4e029a4.gif"  width="800"/></p>
 You can play chords by selecting a degree (in Roman number). In music theory, a degree (chord) refers to the position of a particular chord on a scale relative to the tonic, the first and main note of the scale from which each octave is assumed to begin. Each chords is composed of three notes. It's quite new to conceive electronic in that way, and that's definitely the part I am the most proud of. You can play nice chords, make great pattern without knowing anything to music theory.
@@ -161,8 +161,8 @@ The `Monosynth` component is a `Synth` component, but it only plays one note at 
 </Song>
 ```
 
-##### Personal note
-Like each instrument, the user can set the "resolution" and the number of "bars" of the "Drums".
+#### Personal note
+Like each instrument, the user can set the `resolution` and the number of `bars` of the "Drums".
 In the [Intruments](#intruments) part, you can see all the settings you can use for the Monosynth. For my bass, i used the attack and the decay from the envelope, the type of saw and the glide. We those four settings you create many different bass sounds.
 
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956199-fb4986ac-6318-11e7-9492-e49938ac27b5.gif"  width="800"/></p>
@@ -308,7 +308,7 @@ steps={[
 
 **normfreq** (_number_)
 
-##### Personal note
+#### Personal note
 I used the bit crusher on each instrument to create a video-game like effect.
 The value "4" is the most destructive you can choose.
 
@@ -350,7 +350,7 @@ I used the Chorus to add more complexity to the "Chords" instrument. I wanted th
 
 **wetLevel** (_number_)
 
-##### Personal note
+#### Personal note
 I decided to use this delay for all the instruments at the same time. That's why you can find it in the "Generic Settings" section. I had to work a bit for making an easy to use feature, especially about the delayTime. I had to find the value equals to precise durations (for example 1/4 note, or 1/32 note).
 
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956770-88ffc126-631b-11e7-9b88-0cf75d8fe13c.gif"  width="800"/></p>
@@ -368,7 +368,7 @@ I decided to use this delay for all the instruments at the same time. That's why
 
 **type** (_string_)
 
-##### Personal note
+#### Personal note
 You can use the filters for filtering the frequencies. You will find one in the "Generic Settings" section, and one in the "Chords" section. I decided to keep just two of the type of filters you can choose, the most used ones, to make it easy to use for non-musicians.
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956771-89006b12-631b-11e7-9baa-28a5727818a6.gif"  width="800"/></p>
 
@@ -380,7 +380,7 @@ You can use the filters for filtering the frequencies. You will find one in the 
 
 **amount** (_number_)
 
-##### Personal note
+#### Personal note
 I used gain for the severals volume buttons you can find in the "Settings" section of the instruments.
 
 --
@@ -402,7 +402,7 @@ I used gain for the severals volume buttons you can find in the "Settings" secti
 
 **wetLevel** (_number_)
 
-##### Personal note
+#### Personal note
 I had to choose between all those parameters for making an efficient effect, easy to use.
 I mixed the wetLevel and the dryLevel, so that when wetLevel = 100, dryLevel = 0 and vice versa.
 The level, the impulse and the bypass have static values.
@@ -421,7 +421,7 @@ The level, the impulse and the bypass have static values.
 
 **smoothingTimeConstant** (_number_) : Smoothing time constant
 
-##### Personal note
+#### Personal note
 I used the built-in Visualizer, by FormidableLabs, that use the Analyser.
 <p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956773-89075670-631b-11e7-91ea-b17e8a8f53b2.gif"  width="800"/></p>
 
