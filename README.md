@@ -58,7 +58,8 @@ The first thing you want to do is create a `Song` component. This is the control
 You can access and set your tempo in the Generic Settings / Harmony and Tempo sections.
 I decided to focus a big part of my week of work on the harmonic set up feature : the user can set the root not and the kind of scale he want to use. You can set this up before your song, but also during your song, which will be automatically transposed. I'm really happy about this feature, that is a bit complicated to set up, especially for the chords sections, where I had to store all the informations about music theory (all the major and minor scale, but also the degrees, and many other complex musical things).
 
-This is how this part looks.
+This is how this part looks :
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956221-1515afc0-6319-11e7-944c-bebcb967a7e5.gif"  width="800"/></p>
 
 #### Sequencer
 
@@ -82,6 +83,10 @@ For the chords : <p align="center"><img src="https://user-images.githubuserconte
 
 For the bass :<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27954845-27bbf078-6312-11e7-87c0-7af892967c1d.gif"  width="800"/></p>
 
+
+You can clear each instrument individually, with the "Clear Instrument" button :
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956205-001b634e-6319-11e7-8f88-cae96f266458.gif"  width="800"/></p>
+
 Once you have a `Song` and a `Sequencer` component, you can add instruments to your `Sequencer`. Lets take a look at how these work:
 
 ## Instruments
@@ -103,6 +108,10 @@ The sampler component is used to play audio samples. To use it, you must at very
 
 You can also provide an array for a step, where the second value is a tuning, from -12 to 12.
 
+##### Personal note
+I used this Sampler for making the "Drums" instrument.
+Like each instrument, the user can set the "resolution" and the number of "bars" of the "Drums".
+
 #### Synth
 
 The `Synth` component is used to create an oscillator and play it on steps, just like the `Sampler` does. To use it, you must provide two props, `type` and `steps`. Valid types are `sine`, `square`, `triangle` and `sawtooth`. The `Synth` component also takes an `envelope` prop, where you can specify your ASDR settings. The shape of the `step` prop is a bit different for the `Synth` component, as you must specify an array in the format of `[ step, duration, note || [notes] ]`. The `duration` portion specifies duration in steps. The `note` portion is a string of a musical note and octave like "a4" or "c#1", and for chords, can be an array of the same notes. This would look like:
@@ -120,6 +129,14 @@ The `Synth` component is used to create an oscillator and play it on steps, just
   </Sequencer>
 </Song>
 ```
+
+
+##### Personal note
+Like each instrument, the user can set the "resolution" and the number of "bars" of the "Drums" in the "settings" section of the instrument.
+I used two Synth for creating a poly synthesizer with 2 oscillators. You can set the type of saw of each oscillator and their volume.
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956746-6ed5ef78-631b-11e7-9de3-f45be4e029a4.gif"  width="800"/></p>
+You can play chords by selecting a degree (in Roman number). In music theory, a degree (chord) refers to the position of a particular chord on a scale relative to the tonic, the first and main note of the scale from which each octave is assumed to begin. Each chords is composed of three notes. It's quite new to conceive electronic in that way, and that's definitely the part I am the most proud of. You can play nice chords, make great pattern without knowing anything to music theory.
+
 
 #### Monosynth
 
@@ -139,6 +156,12 @@ The `Monosynth` component is a `Synth` component, but it only plays one note at 
   </Sequencer>
 </Song>
 ```
+
+##### Personal note
+Like each instrument, the user can set the "resolution" and the number of "bars" of the "Drums".
+In the [Intruments](#intruments) part, you can see all the settings you can use for the Monosynth. For my bass, i used the attack and the decay from the envelope, the type of saw and the glide. We those four settings you create many different bass sounds.
+
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956199-fb4986ac-6318-11e7-9492-e49938ac27b5.gif"  width="800"/></p>
 
 ## Effects
 
@@ -281,6 +304,11 @@ steps={[
 
 **normfreq** (_number_)
 
+##### Personal note
+I used the bit crusher on each instrument to create a video-game like effect.
+The value "4" is the most destructive you can choose.
+
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956769-88ff9d18-631b-11e7-9f60-25dfe9aa8282.gif"  width="800"/></p>
 
 --
 
@@ -293,6 +321,11 @@ steps={[
 **feedback** (_number_)
 
 **rate** (_number_)
+
+##### Personal note
+I used the Chorus to add more complexity to the "Chords" instrument. I wanted this website to be quite easy to use, that's why i decided to set static values for the delay, feedback and just let the user have fun with the value of the rate.
+
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27957203-a7e9119e-631d-11e7-9e6e-c35b7de9107c.gif"  width="800"/></p>
 
 
 --
@@ -313,6 +346,11 @@ steps={[
 
 **wetLevel** (_number_)
 
+##### Personal note
+I decided to use this delay for all the instruments at the same time. That's why you can find it in the "Generic Settings" section. I had to work a bit for making an easy to use feature, especially about the delayTime. I had to find the value equals to precise durations (for example 1/4 note, or 1/32 note).
+
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956770-88ffc126-631b-11e7-9b88-0cf75d8fe13c.gif"  width="800"/></p>
+
 
 --
 
@@ -326,6 +364,11 @@ steps={[
 
 **type** (_string_)
 
+##### Personal note
+You can use the filters for filtering the frequencies. You will find one in the "Generic Settings" section, and one in the "Chords" section. I decided to keep just two of the type of filters you can choose, the most used ones, to make it easy to use for non-musicians.
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956771-89006b12-631b-11e7-9baa-28a5727818a6.gif"  width="800"/></p>
+
+
 
 --
 
@@ -333,6 +376,8 @@ steps={[
 
 **amount** (_number_)
 
+##### Personal note
+I used gain for the severals volume buttons you can find in the "Settings" section of the instruments.
 
 --
 
@@ -353,6 +398,12 @@ steps={[
 
 **wetLevel** (_number_)
 
+##### Personal note
+I had to choose between all those parameters for making an efficient effect, easy to use.
+I mixed the wetLevel and the dryLevel, so that when wetLevel = 100, dryLevel = 0 and vice versa.
+The level, the impulse and the bypass have static values.
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956772-8905c4f4-631b-11e7-9da7-d1456958443e.gif"  width="800"/></p>
+
 
 ### Special
 
@@ -365,6 +416,11 @@ steps={[
 **onAudioProcess** (_function_) : Callback function with audio processing data
 
 **smoothingTimeConstant** (_number_) : Smoothing time constant
+
+##### Personal note
+I used the built-in Visualizer, by FormidableLabs, that use the Analyser.
+<p align="center"><img src="https://user-images.githubusercontent.com/26822768/27956773-89075670-631b-11e7-91ea-b17e8a8f53b2.gif"  width="800"/></p>
+
 
 --
 
