@@ -308,10 +308,12 @@ export default class Bass extends Component {
 
 
     render() {
+
+        var that = this;
         let warning = "";
         if(this.state.warning){
 
-            warning = <p>The total can't exceed 32 columns ! Pick another bars and resolution number!</p>
+            warning = "<p>The total can't exceed 32 columns ! Pick another bars and resolution number!</p>"
         }
         var bassIdLength = [], bassColumns = [], selectNote = [], inputChoices = [], octaveChoices = [], bassSequencerStep = "", bassSequencerAll = "",  melodyCheck = "", bassLength = "", bassLengthChoices = "", bassOctave = "";
 
@@ -484,10 +486,9 @@ export default class Bass extends Component {
 
 
 
-                <div class="fx-select fx-container drums-color" id="bass-sound-container">
-                <p className="container-title bass-titles" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
-                <div className="bit-container fx-container bass-color" id="bitcrusher bass-container" style={showBitcrusherContainer}>
-                    <div>
+                <div className="bit-container">
+                    <p className="container-title bass-titles" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</p>
+                    <div className="fx-container bass-color" id="bitcrusher" style={showBitcrusherContainer}>
                         <button className="btn button-primary bitcrusher-button" id="bitcrusher-button-bass" onClick={this.showOrHideBit.bind(this)}>{this.state.showOrHideBit}</button>
                         <select onChange={this.selectBit.bind(this)} value={this.state.bit}>
                             <option value="4">4</option>
@@ -496,7 +497,6 @@ export default class Bass extends Component {
                             <option value="32">32</option>
                         </select>
                     </div>
-                </div>
                 </div>
 
                 <div className='bass-container sequencer-container'>

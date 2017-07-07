@@ -263,7 +263,7 @@ export default class Chords extends Component {
         var that = this;
         let warning = "";
         if(this.state.warning){
-            warning = <p>The total can't exceed 32 columns ! Pick another bars and resolution number!</p>
+            warning = "<p>The total can't exceed 32 columns ! Pick another bars and resolution number!</p>"
         }
         var MelLength = [], chordsColumns = [], selectDegree = [], inputChoices = [], octaveChoices = [], chordsSequencerStep = "", chordsSequencerAll = "",  chordsCheck = "", chordsLength = "", chordsLengthChoices = "", chordsOctave = "";
 

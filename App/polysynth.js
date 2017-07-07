@@ -280,7 +280,7 @@ export default class Polysynth extends Component {
 
                 <div className="bit-container">
                     <h4 className="container-title chords-titles" onClick={this.showOrHideBitcrusher.bind(this)}>Bitcrusher {pointerBitcrusher}</h4>
-                    <div className="fx-select fx-container chords-color" id="bitcrusher" style={showBitcrusherContainer}>
+                    <div className="fx-container chords-color" id="bitcrusher" style={showBitcrusherContainer}>
                         <button onClick={this.showOrHideBit.bind(this)} className="btn button-primary bitcrusher-button" id="bitcrusher-button-chords">{this.state.showOrHideBit}</button>
                         <select id="select-items" onChange={this.selectBit.bind(this)} value={this.state.bit}>
                             <option value="4">4</option>

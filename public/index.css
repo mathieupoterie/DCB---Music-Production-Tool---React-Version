@@ -345,10 +345,6 @@ margin-top: 47px;
     top: 21px;
 }
 
-#drums-bitcrusher{
-    top: 10px;
-    position: relative;
-}
 
 .reverb-container, .filter-container, .filter-chords-container, .delay-container, .harmony-container, .chorus-container{
     text-align: center;
@@ -357,7 +353,6 @@ margin-top: 47px;
 
 .fx-select{
     position: relative;
-    top: 31px;
 }
 
 .fx-container{
@@ -369,7 +364,6 @@ margin-top: 47px;
     transform: translate(-50%);
     position: relative;
     flex-wrap: wrap;
-    margin-bottom: 80px;
 }
 
 .generic-color{
@@ -724,6 +718,7 @@ input:checked + .slider:before {
   }
   .fx-select{
       top : 0;
+
   }
   .fx-container div{
       margin : 22px;

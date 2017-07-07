@@ -11,7 +11,7 @@
 <!-- MarkdownTOC depth=3 autolink=true bracket=round -->
 
 
-- [Synopsis](#Synopsis)
+- [Synopsis](#synopsis)
 - [Basic Concepts](#basic-concepts)
 - [Instruments](#instruments)
 - [Effects](#effects)
@@ -40,7 +40,7 @@ Each of those instruments have different effects you can experiment. The Visuali
 
 I worked in this project using "react music" (https://github.com/FormidableLabs/react-music). Here is, from their documentation, the react component I used to create this DCB Instrument.
 
-## Basic Concepts I used from the React Music
+## Basic Concepts I used from "React-Music" by FormidableLabs
 
 #### Song
 
@@ -51,6 +51,13 @@ The first thing you want to do is create a `Song` component. This is the control
 
 </Song>
 ```
+
+##### Personal note
+
+You can access and set your tempo in the Generic Settings / Harmony and Tempo sections.
+I decided to focus a big part of my week of work on the harmonic set up feature : the user can set the root not and the kind of scale he want to use. You can set this up before your song, but also during your song, which will be automatically transposed. I'm really happy about this feature, that is a bit complicated to set up, especially for the chords sections, where I had to store all the informations about music theory (all the major and minor scale, but also the degrees, and many other complex musical things).
+
+This is how this part looks.
 
 #### Sequencer
 
@@ -64,6 +71,15 @@ Your `Sequencer`'s are what you use to define a looping section. They take two p
   </Sequencer>
 </Song>
 ```
+
+##### Personal note
+
+I decided to use a very common way to play with the sequencer in electronic music : a step sequencer, with a grid.
+This is how it looks for the drums :
+
+For the chords : <img src="https://giphy.com/gifs/3og0ICiMDQArt07TpK"  width="800"/>
+
+For the bass :
 
 Once you have a `Song` and a `Sequencer` component, you can add instruments to your `Sequencer`. Lets take a look at how these work:
 
